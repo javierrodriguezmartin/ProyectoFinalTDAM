@@ -1,4 +1,4 @@
-package com.example.reachthegym;
+package com.example.reachthegym.fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.reachthegym.OnFragmentInteractionList;
+import com.example.reachthegym.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
