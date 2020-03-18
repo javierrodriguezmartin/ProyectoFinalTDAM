@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "309929908389",
+    "firebase_url": "https://reachthegym.firebaseio.com",
+    "project_id": "reachthegym",
+    "storage_bucket": "reachthegym.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309929908389:android:388c3f92c48d4e3e16954c",
+        "android_client_info": {
+          "package_name": "com.example.reachthegym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309929908389-3cac1rh3aubj9dhpm99sk8gccidsc3ed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP9HS5KOJjkpEDYUTx25EKBjIGBVLF3Ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309929908389-3cac1rh3aubj9dhpm99sk8gccidsc3ed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".FragmentRegistro" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_usuario_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_google_signin_btn_icon_dark" />
+
+            <EditText
+                android:id="@+id/dni_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/dni" />
+
+            <EditText
+                android:id="@+id/nombre_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/nombre_registro" />
+
+            <EditText
+                android:id="@+id/apellidos_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/apellidos_registro"/>
+
+            <EditText
+                android:id="@+id/teléfono_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/tel_fono_registro" />
+
+            <EditText
+                android:id="@+id/direccion_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/direcci_n_registro" />
+
+            <EditText
+                android:id="@+id/contrasena_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/contrase_a_registro" />
+
+            <Button
+                android:id="@+id/bton_reg_hecho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/registrarse_registro" />
+
+            <Button
+                android:id="@+id/tomar_foto_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tomar_foto" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
