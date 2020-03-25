@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -25,8 +26,12 @@ import android.widget.Toast;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
+import com.example.reachthegym.clases.Usuario;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -47,7 +52,7 @@ public class FragmentRegistro extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private EditText dni,nombre,apellidos,telefono,contraseña,direccion;
+    private EditText dni,nombre,apellidos,telefono,contraseña,direccion,email;
     private Button registro,tomar_foto;
     private ImageView img_usuario;
     private Uri img_url;
@@ -99,6 +104,7 @@ public class FragmentRegistro extends Fragment {
         img_url = null;
 
         dni = (EditText)vista.findViewById(R.id.dni_registro);
+        email = (EditText)vista.findViewById(R.id.email_registro);
         nombre = (EditText)vista.findViewById(R.id.nombre_registro);
         apellidos = (EditText)vista.findViewById(R.id.apellidos_registro);
         telefono = (EditText)vista.findViewById(R.id.teléfono_registro);
@@ -110,6 +116,56 @@ public class FragmentRegistro extends Fragment {
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
         checkPermissions();
+
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String denei,em,nom,ape,tel,direc,contra;
+                denei = dni.getText().toString().trim().toLowerCase();
+                em = email.getText().toString().trim().toLowerCase();
+                nom = nombre.getText().toString().trim().toLowerCase();
+                ape = apellidos.getText().toString().trim().toLowerCase();
+                tel = telefono.getText().toString().trim().toLowerCase();
+                direc = direccion.getText().toString().trim().toLowerCase();
+                contra = contraseña.getText().toString().trim();
+
+                ref.child("centro")
+                        .child("usuarios")
+                        .orderByChild("email")
+                        .equalTo(em)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.hasChildren()){
+
+                                    if (!denei.isEmpty() && !em.isEmpty() && !nom.isEmpty() && !ape.isEmpty() && !tel.isEmpty() && !direc.isEmpty() && !contra.isEmpty() ){
+
+                                        Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em);
+                                        String clave  = ref.child("centro").child("usuarios").push().getKey();
+                                        nuevo_usuario.setId(clave);
+                                        ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
+
+                                        Toast.makeText(getContext(), "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
+                                        cerrarFragment();
+                                    }else{
+                                        Toast.makeText(getContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }else{
+                                    Toast.makeText(getContext(), "El email ya está en uso", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+            }
+        });
 
         tomar_foto.setOnClickListener(new View.OnClickListener() {
             @Override

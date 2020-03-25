@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_camera"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_camera" />
+
+    <item android:id="@+id/action_navi"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_agenda" />
+
+    <item android:id="@+id/action_add"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_add" />
+
+    <item android:id="@+id/action_settings"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_preferences" />
+
+    <item android:id="@+id/action_search"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_search"/>
+
+
+</menu>

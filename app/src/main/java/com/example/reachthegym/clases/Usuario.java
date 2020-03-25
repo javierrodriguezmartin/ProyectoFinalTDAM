@@ -4,7 +4,7 @@ import android.net.Uri;
 
 public class Usuario {
 
-    private String dni,nombre,apellidos,telefono,direccion,contrasena,tipo;
+    private String dni,nombre,apellidos,telefono,direccion,contrasena,tipo,email,id;
     private Uri img_url;
 
     public Usuario() {
@@ -15,9 +15,11 @@ public class Usuario {
         this.direccion = "";
         this.contrasena = "";
         this.tipo = "cliente";
+        this.email = "";
+        this.id = "";
     }
 
-    public Usuario(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena) {
+    public Usuario(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena,String email) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -25,6 +27,23 @@ public class Usuario {
         this.direccion = direccion;
         this.contrasena = contrasena;
         this.tipo = "cliente";
+        this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Uri getImg_url() {
