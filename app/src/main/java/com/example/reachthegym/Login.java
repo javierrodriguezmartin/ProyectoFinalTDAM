@@ -1,7 +1,12 @@
 package com.example.reachthegym;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.reachthegym.fragments.FragmentRegistro;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -36,13 +45,52 @@ public class Login extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
 
-        registro.setOnClickListener(new View.OnClickListener() {
+        ini_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                 ref.child("centro")
+                         .child("usuarios")
+                         .orderByChild("email")
+                         .addListenerForSingleValueEvent(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                 DataSnapshot hijo = dataSnapshot.getChildren().iterator().next();
+                                 String con,em;
+                                 em = correo.getText().toString().trim();
+                                 con = contra.getText().toString().trim();
+
+                                 if (){
+
+
+                                 }else{
+
+                                 }
+
+                             }
+
+                             @Override
+                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                             }
+                         });
 
             }
         });
 
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentRegistro fragmentRegistro = FragmentRegistro.newInstance("","");
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frame_login,fragmentRegistro);
+                ft.commit();
+
+            }
+        });
+
+        img_url = null;
 
     }
 }

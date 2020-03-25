@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -138,23 +140,28 @@ public class FragmentRegistro extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (!dataSnapshot.hasChildren()){
 
-                                    if (!denei.isEmpty() && !em.isEmpty() && !nom.isEmpty() && !ape.isEmpty() && !tel.isEmpty() && !direc.isEmpty() && !contra.isEmpty() ){
 
-                                        Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em);
-                                        String clave  = ref.child("centro").child("usuarios").push().getKey();
-                                        nuevo_usuario.setId(clave);
-                                        ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
+                                    if (validarEmail(em)){
+                                        if (!denei.isEmpty() && !em.isEmpty() && !nom.isEmpty() && !ape.isEmpty() && !tel.isEmpty() && !direc.isEmpty() && !contra.isEmpty() ){
 
-                                        Toast.makeText(getContext(), "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
-                                        cerrarFragment();
+                                            Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em);
+                                            String clave  = ref.child("centro").child("usuarios").push().getKey();
+                                            nuevo_usuario.setId(clave);
+                                            ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
+
+                                            Toast.makeText(getContext(), "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
+                                            cerrarFragment();
+                                        }else{
+                                            Toast.makeText(getContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                                        }
+
                                     }else{
-                                        Toast.makeText(getContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Email incorrecto", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }else{
-                                    Toast.makeText(getContext(), "El email ya está en uso", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "El email ya está en uso", Toast.LENGTH_SHORT).show(); }
                                 }
-                            }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -263,6 +270,11 @@ public class FragmentRegistro extends Fragment {
             Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private boolean validarEmail(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
 }
