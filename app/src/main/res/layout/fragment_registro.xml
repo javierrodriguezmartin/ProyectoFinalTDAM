@@ -23,13 +23,20 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_google_signin_btn_icon_dark" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dni_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="@string/dni" />
+                android:hint="@string/dni">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <EditText
                 android:id="@+id/email_registro"

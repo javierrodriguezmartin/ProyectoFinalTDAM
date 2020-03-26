@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.example.reachthegym.clases.Usuario;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +55,8 @@ public class FragmentRegistro extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private EditText dni,nombre,apellidos,telefono,contraseña,direccion,email;
+    private TextInputEditText dni;
+    private EditText nombre,apellidos,telefono,contraseña,direccion,email;
     private Button registro,tomar_foto;
     private ImageView img_usuario;
     private Uri img_url;
@@ -105,7 +107,7 @@ public class FragmentRegistro extends Fragment {
         final View vista = inflater.inflate(R.layout.fragment_registro, container, false);
         img_url = null;
 
-        dni = (EditText)vista.findViewById(R.id.dni_registro);
+        dni = (TextInputEditText)vista.findViewById(R.id.dni_registro);
         email = (EditText)vista.findViewById(R.id.email_registro);
         nombre = (EditText)vista.findViewById(R.id.nombre_registro);
         apellidos = (EditText)vista.findViewById(R.id.apellidos_registro);

@@ -6,14 +6,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.reachthegym.clases.Usuario;
 import com.example.reachthegym.fragments.FragmentRegistro;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,19 +55,33 @@ public class Login extends AppCompatActivity {
                  ref.child("centro")
                          .child("usuarios")
                          .orderByChild("email")
+                         .equalTo(correo.getText().toString().trim())
                          .addListenerForSingleValueEvent(new ValueEventListener() {
                              @Override
                              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                 DataSnapshot hijo = dataSnapshot.getChildren().iterator().next();
-                                 String con,em;
-                                 em = correo.getText().toString().trim();
-                                 con = contra.getText().toString().trim();
 
-                                 if (){
+                                 if(dataSnapshot.hasChildren()){
 
+                                     DataSnapshot hijo = dataSnapshot.getChildren().iterator().next();
+                                     String pw = hijo.getValue(Usuario.class).getContrasena();
+                                     String ide = hijo.getValue(Usuario.class).getId();
+
+                                     if (pw.equals(contra.getText().toString().trim())){
+
+                                         SharedPreferences prefs = getSharedPreferences("datos", Context.MODE_PRIVATE);
+                                         SharedPreferences.Editor editor = prefs.edit();
+                                         editor.putString("id_usuario",ide);
+                                         editor.commit();
+
+                                         Intent i = new Intent(getApplicationContext(),MenuPrincipal.class);
+                                         startActivity(i);
+
+                                     }else{
+                                         Toast.makeText(Login.this, "Las credenciales no coinciden", Toast.LENGTH_SHORT).show();
+                                     }
 
                                  }else{
-
+                                     Toast.makeText(Login.this, "El usuario no está registrado" , Toast.LENGTH_SHORT).show();
                                  }
 
                              }
