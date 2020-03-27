@@ -2,6 +2,6 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="my_app_images"
-        path="Android/data/com.example.javimarket/files/Pictures"
+        path="Android/data/com.example.reachthegym/files/Pictures"
         />
 </paths>
