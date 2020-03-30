@@ -42,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -126,7 +127,7 @@ public class FragmentRegistro extends Fragment {
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String denei,em,nom,ape,tel,direc,contra;
+                final String denei,em,nom,ape,tel,direc,contra,f_alta;
                 denei = dni.getText().toString().trim().toLowerCase();
                 em = email.getText().toString().trim().toLowerCase();
                 nom = nombre.getText().toString().trim().toLowerCase();
@@ -134,6 +135,10 @@ public class FragmentRegistro extends Fragment {
                 tel = telefono.getText().toString().trim().toLowerCase();
                 direc = direccion.getText().toString().trim().toLowerCase();
                 contra = contraseña.getText().toString().trim();
+
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                f_alta = format1.format(c.getTime());
 
                 ref.child("centro")
                         .child("usuarios")
@@ -148,7 +153,7 @@ public class FragmentRegistro extends Fragment {
                                     if (validarEmail(em)){
                                         if (!denei.isEmpty() && !em.isEmpty() && !nom.isEmpty() && !ape.isEmpty() && !tel.isEmpty() && !direc.isEmpty() && !contra.isEmpty() ){
 
-                                            Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em);
+                                            Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em,f_alta);
                                             String clave  = ref.child("centro").child("usuarios").push().getKey();
                                             nuevo_usuario.setId(clave);
                                             ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
