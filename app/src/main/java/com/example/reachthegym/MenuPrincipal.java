@@ -2,13 +2,16 @@ package com.example.reachthegym;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.reachthegym.fragments.ListarUsuariosAdmin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MenuPrincipal extends AppCompatActivity {
+public class MenuPrincipal extends AppCompatActivity implements OnFragmentInteractionList{
 
     private BottomNavigationView menuBottom;
 
@@ -26,8 +29,8 @@ public class MenuPrincipal extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.action_add:
 
-                           // FragmentVerTienda frag_ver_tienda = FragmentVerTienda.newInstance(tipo, tipo);
-                            //loadFragment(frag_ver_tienda).commit();
+                        ListarUsuariosAdmin listarUsuariosAdmin = ListarUsuariosAdmin.newInstance("", "");
+                            loadFragment(listarUsuariosAdmin).commit();
 
 
                         break;
@@ -57,6 +60,19 @@ public class MenuPrincipal extends AppCompatActivity {
                 return true;
             }
         });
+
+    }
+
+    public FragmentTransaction loadFragment(Fragment loadFrag){
+        getSupportFragmentManager().popBackStack();
+        return getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                .replace(R.id.frame_principal, loadFrag);
+    }
+
+    @Override
+    public void onFragmentMessage(String data1, String data) {
 
     }
 }

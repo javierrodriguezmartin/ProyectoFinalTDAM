@@ -15,4 +15,9 @@
     <string name="contrase_a_registro">Contraseña</string>
     <string name="registrarse_registro">Registrarse</string>
     <string name="tomar_foto">Tomar Foto</string>
+    <string name="todo">TODO</string>
+    <string name="tipousuario">TipoUsuario</string>
+    <string name="nombreusuario_ad">NombreUsuario</string>
+    <string name="apellidosusuarioad">ApellidosUsuario</string>
+    <string name="fechaaltaad">FechaAlta</string>
 </resources>

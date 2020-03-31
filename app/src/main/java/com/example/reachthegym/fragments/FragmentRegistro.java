@@ -153,13 +153,19 @@ public class FragmentRegistro extends Fragment {
                                     if (validarEmail(em)){
                                         if (!denei.isEmpty() && !em.isEmpty() && !nom.isEmpty() && !ape.isEmpty() && !tel.isEmpty() && !direc.isEmpty() && !contra.isEmpty() ){
 
-                                            Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em,f_alta);
-                                            String clave  = ref.child("centro").child("usuarios").push().getKey();
-                                            nuevo_usuario.setId(clave);
-                                            ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
+                                            if (img_url!=null){
+                                                Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em,f_alta);
+                                                String clave  = ref.child("centro").child("usuarios").push().getKey();
+                                                nuevo_usuario.setId(clave);
+                                                ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
+                                                sto.child("centro").child("imagenes").child(clave).putFile(img_url);
 
-                                            Toast.makeText(getContext(), "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
-                                            cerrarFragment();
+                                                Toast.makeText(getContext(), "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
+                                                cerrarFragment();
+                                            }else{
+                                                Toast.makeText(getContext(), "Seleccione una foto", Toast.LENGTH_SHORT).show();
+                                            }
+
                                         }else{
                                             Toast.makeText(getContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
                                         }
@@ -270,12 +276,10 @@ public class FragmentRegistro extends Fragment {
             img_url = data.getData();
             img_usuario.setImageURI(img_url);
             Toast.makeText(getContext(), "Imagen seleccionada", Toast.LENGTH_SHORT).show();
-
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
             img_usuario.setImageBitmap(bitmap);
         } else {
-
             Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         }
 
