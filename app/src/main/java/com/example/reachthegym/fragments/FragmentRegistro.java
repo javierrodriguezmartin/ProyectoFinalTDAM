@@ -128,12 +128,12 @@ public class FragmentRegistro extends Fragment {
             @Override
             public void onClick(View v) {
                 final String denei,em,nom,ape,tel,direc,contra,f_alta;
-                denei = dni.getText().toString().trim().toLowerCase();
-                em = email.getText().toString().trim().toLowerCase();
-                nom = nombre.getText().toString().trim().toLowerCase();
-                ape = apellidos.getText().toString().trim().toLowerCase();
-                tel = telefono.getText().toString().trim().toLowerCase();
-                direc = direccion.getText().toString().trim().toLowerCase();
+                denei = dni.getText().toString().trim();
+                em = email.getText().toString().trim();
+                nom = nombre.getText().toString().trim();
+                ape = apellidos.getText().toString().trim();
+                tel = telefono.getText().toString().trim();
+                direc = direccion.getText().toString().trim();
                 contra = contraseña.getText().toString().trim();
 
                 Calendar c = Calendar.getInstance();
@@ -240,6 +240,7 @@ public class FragmentRegistro extends Fragment {
                 Uri photoURI = FileProvider.getUriForFile(getContext(),
                         "com.example.reachthegym.fileprovider",
                         photoFile);
+                img_url= photoURI;
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -280,7 +281,7 @@ public class FragmentRegistro extends Fragment {
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
             img_usuario.setImageBitmap(bitmap);
         } else {
-            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
         }
 
     }

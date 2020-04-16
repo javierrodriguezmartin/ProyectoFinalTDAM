@@ -1,6 +1,8 @@
 package com.example.reachthegym.adaptadores;
 
 import android.content.Context;
+import android.telecom.Call;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
 import com.example.reachthegym.clases.Usuario;
+import com.example.reachthegym.fragments.ListarUsuariosAdmin;
+import com.example.reachthegym.fragments.VerUsuarioAdmin;
+import com.example.reachthegym.transiciones.TransicionCard1;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +28,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+//Listar Usuarios Admin
 public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHolder> {
 
     private ArrayList<Usuario> lista_usuario = new ArrayList<>();
@@ -57,9 +62,15 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
         holder.apellidosUsuAdmin.setText(pojo_usuario.getApellidos());
         holder.faltaUsuAdmin.setText(pojo_usuario.getFecha_alta());
         holder.tipoUsuarioAdmin.setText(pojo_usuario.getTipo());
-        System.out.println(pojo_usuario.getNombre()+" EL NOMB RE DE USUARIO!!!!!!!!!!!");
         Glide.with(mContext).load(pojo_usuario.getImg_url()).into(holder.imgListarAdmin);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                VerUsuarioAdmin ver_usu =
+
+            }
+        });
 
     }
 

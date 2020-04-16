@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
 
                                      if (pw.equals(contra.getText().toString().trim())){
 
-                                         SharedPreferences prefs = getSharedPreferences("datos", Context.MODE_PRIVATE);
+                                         SharedPreferences prefs = getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
                                          SharedPreferences.Editor editor = prefs.edit();
                                          editor.putString("id_usuario",ide);
                                          editor.commit();

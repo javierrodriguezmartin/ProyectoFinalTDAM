@@ -20,4 +20,7 @@
     <string name="nombreusuario_ad">NombreUsuario</string>
     <string name="apellidosusuarioad">ApellidosUsuario</string>
     <string name="fechaaltaad">FechaAlta</string>
+    <string name="tipo_de_usuario">Tipo de Usuario:</string>
+    <string name="modificar">Modificar</string>
+    <string name="eliminar_usuario">Eliminar Usuario</string>
 </resources>
