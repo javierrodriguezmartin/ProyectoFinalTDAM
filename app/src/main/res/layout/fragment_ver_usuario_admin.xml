@@ -76,13 +76,13 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/mod_usu_vver"
+                android:id="@+id/mod_usu_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/modificar" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/borrar_usu_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/eliminar_usuario" />

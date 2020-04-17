@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.reachthegym.R;
-import com.example.reachthegym.clases.Usuario;
+import com.example.reachthegym.objetos.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,10 +55,10 @@ public class VerUsuarioAdmin extends Fragment {
     TextView clienteUsuVer;
     @BindView(R.id.tipo_usu_ver)
     Spinner tipoUsuVer;
-    @BindView(R.id.mod_usu_vver)
-    Button modUsuVver;
-    @BindView(R.id.button2)
-    Button button2;
+    @BindView(R.id.mod_usu_ver)
+    Button modUsuVer;
+    @BindView(R.id.borrar_usu_ver)
+    Button borrarUsuVer;
     Unbinder unbinder;
 
     // TODO: Rename and change types of parameters
@@ -118,7 +118,7 @@ public class VerUsuarioAdmin extends Fragment {
                             if(!dataSnapshot.hasChildren()){
                                 Toast.makeText(getContext(), "Data snatchot no tiene children bro ", Toast.LENGTH_SHORT).show();
                             }else{
-                                Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
+                                final Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
                                 nombreUsuVer.setText(pojo_usuario.getNombre());
                                 apellidosUsuVer.setText(pojo_usuario.getApellidos());
                                 telefonoUsuVer.setText(pojo_usuario.getTelefono());
@@ -126,13 +126,24 @@ public class VerUsuarioAdmin extends Fragment {
                                 direccionUsuVer.setText(pojo_usuario.getDireccion());
                                 fechaaltaUsuVer.setText(pojo_usuario.getFecha_alta());
 
+                                borrarUsuVer.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if(pojo_usuario.getTipo().toLowerCase().equals("empleado")){
+                                            Toast.makeText(getContext(), "El usuario no puede borrarse, puede que tenga clientes a su cargo", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            ref.child("centro").child("usuarios").child(pojo_usuario.getId()).removeValue();
+                                            Toast.makeText(getContext(), "Usuario borrado correctamente", Toast.LENGTH_SHORT).show();
+                                        }
 
+                                    }
+                                });
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            Toast.makeText(getContext(), "Algo falla en la consulta", Toast.LENGTH_SHORT).show();
                         }
                     });
         }

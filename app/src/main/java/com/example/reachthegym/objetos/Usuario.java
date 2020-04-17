@@ -1,4 +1,4 @@
-package com.example.reachthegym.clases;
+package com.example.reachthegym.objetos;
 
 import android.net.Uri;
 

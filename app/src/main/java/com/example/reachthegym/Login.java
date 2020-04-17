@@ -2,7 +2,6 @@ package com.example.reachthegym;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -17,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.reachthegym.clases.Usuario;
+import com.example.reachthegym.objetos.Usuario;
 import com.example.reachthegym.fragments.FragmentRegistro;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

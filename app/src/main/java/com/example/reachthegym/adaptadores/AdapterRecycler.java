@@ -1,8 +1,6 @@
 package com.example.reachthegym.adaptadores;
 
 import android.content.Context;
-import android.telecom.Call;
-import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
-import com.example.reachthegym.clases.Usuario;
-import com.example.reachthegym.fragments.ListarUsuariosAdmin;
-import com.example.reachthegym.fragments.VerUsuarioAdmin;
-import com.example.reachthegym.transiciones.TransicionCard1;
-import com.google.android.material.card.MaterialCardView;
+import com.example.reachthegym.objetos.Usuario;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -67,7 +61,6 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
             @Override
             public void onClick(View v) {
 
-                VerUsuarioAdmin ver_usu =
 
             }
         });
