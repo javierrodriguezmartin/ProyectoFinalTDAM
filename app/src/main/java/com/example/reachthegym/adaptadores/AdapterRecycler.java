@@ -8,10 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.reachthegym.MenuPrincipal;
 import com.example.reachthegym.R;
+import com.example.reachthegym.fragments.VerUsuarioAdmin;
 import com.example.reachthegym.objetos.Usuario;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,7 +66,16 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
             @Override
             public void onClick(View v) {
 
+                VerUsuarioAdmin fragUsu = VerUsuarioAdmin.newInstance(pojo_usuario.getId(),"");
+                AppCompatActivity activity = (AppCompatActivity)holder.itemView.getContext();
 
+                activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,fragUsu).commit();
+
+                /*
+                MenuPrincipal menu = (MenuPrincipal)mContext;
+                FragmentManager manager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                menu.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,fragUsu);
+*/
             }
         });
 

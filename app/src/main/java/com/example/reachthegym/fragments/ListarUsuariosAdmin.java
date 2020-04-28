@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
@@ -122,9 +123,10 @@ public class ListarUsuariosAdmin extends Fragment {
 
                     }
                 });
-        adapter = new AdapterRecycler(lista_usu,getContext());
+        adapter = new AdapterRecycler(lista_usu,getActivity());
         recy_ver_usu.setLayoutManager(new GridLayoutManager(getContext(),1));
         recy_ver_usu.setAdapter(adapter);
+
 
         return vista;
     }

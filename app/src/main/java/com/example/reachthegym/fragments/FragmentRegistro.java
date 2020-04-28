@@ -277,6 +277,8 @@ public class FragmentRegistro extends Fragment {
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
             img_usuario.setImageBitmap(bitmap);
+            img_url = data.getData();
+            Toast.makeText(getContext(), "Imagen seleccionada", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
         }

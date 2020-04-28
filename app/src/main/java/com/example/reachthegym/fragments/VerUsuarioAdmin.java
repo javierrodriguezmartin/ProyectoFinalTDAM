@@ -1,9 +1,11 @@
 package com.example.reachthegym.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -13,8 +15,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
 import com.example.reachthegym.objetos.Usuario;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +51,8 @@ public class VerUsuarioAdmin extends Fragment {
     TextView apellidosUsuVer;
     @BindView(R.id.telefono_usu_ver)
     TextView telefonoUsuVer;
-    @BindView(R.id.email_usu_vevr)
-    TextView emailUsuVevr;
+    @BindView(R.id.email_usu_ver)
+    TextView emailUsuVer;
     @BindView(R.id.direccion_usu_ver)
     TextView direccionUsuVer;
     @BindView(R.id.fechaalta_usu_ver)
@@ -66,6 +72,7 @@ public class VerUsuarioAdmin extends Fragment {
     private String mParam2;
     private DatabaseReference ref;
     private StorageReference sto;
+    private static ArrayList<String> tipos = new ArrayList<>();
 
     public VerUsuarioAdmin() {
         // Required empty public constructor
@@ -115,6 +122,7 @@ public class VerUsuarioAdmin extends Fragment {
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                             if(!dataSnapshot.hasChildren()){
                                 Toast.makeText(getContext(), "Data snatchot no tiene children bro ", Toast.LENGTH_SHORT).show();
                             }else{
@@ -122,9 +130,34 @@ public class VerUsuarioAdmin extends Fragment {
                                 nombreUsuVer.setText(pojo_usuario.getNombre());
                                 apellidosUsuVer.setText(pojo_usuario.getApellidos());
                                 telefonoUsuVer.setText(pojo_usuario.getTelefono());
-                                emailUsuVevr.setText(pojo_usuario.getEmail());
+                                emailUsuVer.setText(pojo_usuario.getEmail());
                                 direccionUsuVer.setText(pojo_usuario.getDireccion());
                                 fechaaltaUsuVer.setText(pojo_usuario.getFecha_alta());
+                                Glide.with(getContext()).load(pojo_usuario.getImg_url()).into(imgUsuVer);
+
+                                ref.child("centro").child("tipos").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        tipos.clear();
+                                        int i=0;
+                                        for (DataSnapshot hijo: dataSnapshot.getChildren()){
+                                            final String tipo_usuario = hijo.getValue(String.class);
+                                            tipos.add(i,tipo_usuario);
+                                            i++;
+                                        }
+
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,tipos);
+                                        tipoUsuVer.setAdapter(adapter);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        Toast.makeText(getContext(), "Ha habido problemas con la consulta", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+
 
                                 borrarUsuVer.setOnClickListener(new View.OnClickListener() {
                                     @Override
