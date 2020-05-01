@@ -36,7 +36,8 @@
                         android:id="@+id/nom_usu_admin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/nombreusuario_ad" />
+                        android:text="@string/nombreusuario_ad"
+                        />
 
                     <TextView
                         android:id="@+id/tipo_usuario_admin"

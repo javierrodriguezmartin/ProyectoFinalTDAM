@@ -20,8 +20,9 @@ public class Usuario {
         this.fecha_alta = "";
     }
 
-    public Usuario(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena,String email,String fecha_alta) {
+    public Usuario(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena,String email,String fecha_alta,String id) {
         this.dni = dni;
+        this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;

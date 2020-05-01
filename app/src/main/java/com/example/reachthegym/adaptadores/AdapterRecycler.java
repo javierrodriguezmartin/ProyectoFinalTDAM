@@ -62,6 +62,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
         holder.faltaUsuAdmin.setText(pojo_usuario.getFecha_alta());
         holder.tipoUsuarioAdmin.setText(pojo_usuario.getTipo());
         Glide.with(mContext).load(pojo_usuario.getImg_url()).into(holder.imgListarAdmin);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,5 +106,10 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
             ButterKnife.bind(this,itemView);
             mContext = itemView.getContext();
         }
+
+    }
+    public void filtrar(ArrayList<Usuario> filtroUsuarios){
+        this.lista_usuario = filtroUsuarios;
+        notifyDataSetChanged();
     }
 }

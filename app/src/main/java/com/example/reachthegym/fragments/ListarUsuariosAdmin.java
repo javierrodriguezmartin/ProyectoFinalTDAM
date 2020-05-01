@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.reachthegym.R;
 import com.example.reachthegym.adaptadores.AdapterRecycler;
 import com.example.reachthegym.objetos.Usuario;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +51,7 @@ public class ListarUsuariosAdmin extends Fragment {
     private StorageReference sto;
     private AdapterRecycler adapter;
     private ArrayList<Usuario> lista_usu;
+    private TextInputEditText buscador;
 
     private OnFragmentInteractionList mListener;
 
@@ -87,6 +91,7 @@ public class ListarUsuariosAdmin extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_listar_usuarios_admin, container, false);
 
+        buscador = (TextInputEditText)vista.findViewById(R.id.buscador_admin);
         recy_ver_usu = (RecyclerView)vista.findViewById(R.id.recy_usu_ad);
         lista_usu = new ArrayList<>();
         ref = FirebaseDatabase.getInstance().getReference();
@@ -127,10 +132,38 @@ public class ListarUsuariosAdmin extends Fragment {
         recy_ver_usu.setLayoutManager(new GridLayoutManager(getContext(),1));
         recy_ver_usu.setAdapter(adapter);
 
+        buscador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filtrar(s.toString());
+            }
+        });
 
         return vista;
     }
+    public void filtrar(String texto){
+        ArrayList<Usuario> filtrarLista = new ArrayList<>();
 
+        for (Usuario usuario: lista_usu){
+
+            if (usuario.getNombre().toLowerCase().contains(texto.toLowerCase())){
+                filtrarLista.add(usuario);
+            }
+
+            adapter.filtrar(filtrarLista);
+        }
+
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -154,5 +187,6 @@ public class ListarUsuariosAdmin extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
 }

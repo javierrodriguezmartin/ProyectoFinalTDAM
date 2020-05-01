@@ -4,7 +4,7 @@ import android.net.Uri;
 
 public class Ejercicio {
 
-    private String id_ejercicio,nombre,zona,objetivo,descripción;
+    private String id_ejercicio,nombre,zona,objetivo,descripcion;
     private int series,repeticiones,minutos,segundos;
     private Uri img_url;
 
@@ -13,23 +13,19 @@ public class Ejercicio {
         this.id_ejercicio = "";
         this.zona = "";
         this.objetivo = "";
-        this.descripción = "";
+        this.descripcion = "";
         this.series = 0;
         this.repeticiones = 0;
         this.minutos = 0;
         this.segundos = 0;
     }
 
-    public Ejercicio(String id_ejercicio,String nombre, String zona, String objetivo, String descripción,int series, int repeticiones,int minutos,int segundos) {
+    public Ejercicio(String id_ejercicio,String nombre, String zona, String objetivo, String descripcion) {
         this.id_ejercicio = id_ejercicio;
         this.nombre = nombre;
         this.zona = zona;
         this.objetivo = objetivo;
-        this.descripción = descripción;
-        this.series = series;
-        this.repeticiones = repeticiones;
-        this.minutos = minutos;
-        this.segundos = segundos;
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {
@@ -38,22 +34,6 @@ public class Ejercicio {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public int getMinutos() {
-        return minutos;
-    }
-
-    public void setMinutos(int minutos) {
-        this.minutos = minutos;
-    }
-
-    public int getSegundos() {
-        return segundos;
-    }
-
-    public void setSegundos(int segundos) {
-        this.segundos = segundos;
     }
 
     public String getId_ejercicio() {
@@ -80,28 +60,12 @@ public class Ejercicio {
         this.objetivo = objetivo;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
-    }
-
-    public int getSeries() {
-        return series;
-    }
-
-    public void setSeries(int series) {
-        this.series = series;
-    }
-
-    public int getRepeticiones() {
-        return repeticiones;
-    }
-
-    public void setRepeticiones(int repeticiones) {
-        this.repeticiones = repeticiones;
+    public void setDescripción(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Uri getImg_url() {
