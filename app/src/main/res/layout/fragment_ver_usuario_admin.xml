@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img_usu_ver"
@@ -21,41 +21,95 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_google_signin_btn_icon_dark" />
 
-            <TextView
-                android:id="@+id/nombre_usu_ver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/apellidos_usu_ver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/telefono_usu_ver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                    <TextView
+                        android:id="@+id/tel_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/telUsuVer"
+                        android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/email_usu_ver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                    <TextView
+                        android:id="@+id/ape_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/apeUsuVer"
+                        android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/direccion_usu_ver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                    <TextView
+                        android:id="@+id/nom_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nomUsuVer"
+                        android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/fechaalta_usu_ver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                    <TextView
+                        android:id="@+id/direc_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/direcUsuVer"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/fecha_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/faltaUsuVer"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/em_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/emUsuVer"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/telefono_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/apellidos_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/nombre_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/direccion_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/fechaalta_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/email_usu_ver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,10 +118,11 @@
 
                 <TextView
                     android:id="@+id/cliente_usu_ver"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/tipo_de_usuario" />
+                    android:text="@string/tipo_de_usuario"
+                    android:textStyle="bold"/>
 
                 <Spinner
                     android:id="@+id/tipo_usu_ver"

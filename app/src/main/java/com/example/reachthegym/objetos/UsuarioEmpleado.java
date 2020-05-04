@@ -11,8 +11,9 @@ public class UsuarioEmpleado extends Usuario {
         this.id_empleado = "";
     }
 
-    public UsuarioEmpleado(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena, String email, String fecha_alta, String id) {
+    public UsuarioEmpleado(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena, String email, String fecha_alta, String id,String id_empleado) {
         super(dni, nombre, apellidos, telefono, direccion, contrasena, email, fecha_alta, id);
+        this.id_empleado = id_empleado;
     }
 
     public String getId_empleado() {

@@ -66,6 +66,7 @@ public class VerUsuarioAdmin extends Fragment {
     @BindView(R.id.borrar_usu_ver)
     Button borrarUsuVer;
     Unbinder unbinder;
+    private Usuario pojo_usu;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -127,13 +128,7 @@ public class VerUsuarioAdmin extends Fragment {
                                 Toast.makeText(getContext(), "Data snatchot no tiene children bro ", Toast.LENGTH_SHORT).show();
                             }else{
                                 final Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
-                                nombreUsuVer.setText(pojo_usuario.getNombre());
-                                apellidosUsuVer.setText(pojo_usuario.getApellidos());
-                                telefonoUsuVer.setText(pojo_usuario.getTelefono());
-                                emailUsuVer.setText(pojo_usuario.getEmail());
-                                direccionUsuVer.setText(pojo_usuario.getDireccion());
-                                fechaaltaUsuVer.setText(pojo_usuario.getFecha_alta());
-                                Glide.with(getContext()).load(pojo_usuario.getImg_url()).into(imgUsuVer);
+                                pojo_usu = pojo_usuario;
 
                                 ref.child("centro").child("tipos").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -156,7 +151,18 @@ public class VerUsuarioAdmin extends Fragment {
                                     }
                                 });
 
-
+                                nombreUsuVer.setText(pojo_usu.getNombre());
+                                apellidosUsuVer.setText(pojo_usu.getApellidos());
+                                telefonoUsuVer.setText(pojo_usu.getTelefono());
+                                emailUsuVer.setText(pojo_usu.getEmail());
+                                direccionUsuVer.setText(pojo_usu.getDireccion());
+                                fechaaltaUsuVer.setText(pojo_usu.getFecha_alta());
+                                sto.child("centro").child("imagenes").child(pojo_usu.getId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Glide.with(getContext()).load(uri).into(imgUsuVer);
+                                    }
+                                });
 
 
                                 borrarUsuVer.setOnClickListener(new View.OnClickListener() {

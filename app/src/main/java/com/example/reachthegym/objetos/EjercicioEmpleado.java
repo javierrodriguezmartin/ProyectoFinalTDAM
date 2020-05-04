@@ -1,7 +1,11 @@
 package com.example.reachthegym.objetos;
 
+import android.net.Uri;
+
 public class EjercicioEmpleado extends Ejercicio  {
     private String id_empleado;
+    private Uri img_url;
+
 
     public EjercicioEmpleado() {
         this.id_empleado = "";
@@ -18,5 +22,15 @@ public class EjercicioEmpleado extends Ejercicio  {
 
     public void setId_empleado(String id_empleado) {
         this.id_empleado = id_empleado;
+    }
+
+    @Override
+    public Uri getImg_url() {
+        return img_url;
+    }
+
+    @Override
+    public void setImg_url(Uri img_url) {
+        this.img_url = img_url;
     }
 }

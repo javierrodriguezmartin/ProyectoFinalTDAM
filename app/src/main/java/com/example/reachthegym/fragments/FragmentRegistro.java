@@ -151,10 +151,10 @@ public class FragmentRegistro extends Fragment {
                                         if (!denei.isEmpty() && !em.isEmpty() && !nom.isEmpty() && !ape.isEmpty() && !tel.isEmpty() && !direc.isEmpty() && !contra.isEmpty() ){
 
                                             if (img_url!=null){
-                                                Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em,f_alta);
                                                 String clave  = ref.child("centro").child("usuarios").push().getKey();
-                                                nuevo_usuario.setId(clave);
+                                                Usuario nuevo_usuario = new Usuario(denei,nom,ape,tel,direc,contra,em,f_alta,clave);
                                                 ref.child("centro").child("usuarios").child(clave).setValue(nuevo_usuario);
+                                                nuevo_usuario.setImg_url(img_url);
                                                 sto.child("centro").child("imagenes").child(clave).putFile(img_url);
 
                                                 Toast.makeText(getContext(), "Usuario creado correctamente", Toast.LENGTH_SHORT).show();

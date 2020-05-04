@@ -70,7 +70,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
                 VerUsuarioAdmin fragUsu = VerUsuarioAdmin.newInstance(pojo_usuario.getId(),"");
                 AppCompatActivity activity = (AppCompatActivity)holder.itemView.getContext();
 
-                activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,fragUsu).commit();
+                activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,fragUsu).addToBackStack(null).commit();
 
                 /*
                 MenuPrincipal menu = (MenuPrincipal)mContext;

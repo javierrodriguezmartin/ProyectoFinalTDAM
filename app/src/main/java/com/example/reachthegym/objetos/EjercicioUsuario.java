@@ -14,10 +14,10 @@ public class EjercicioUsuario {
         this.zona = "";
         this.objetivo = "";
         this.descripcion  = "";
-        this.series = series;
-        this.repeticiones = repeticiones;
-        this.minutos = minutos;
-        this.segundos = segundos;
+        this.series = 0;
+        this.repeticiones = 0;
+        this.minutos = 0;
+        this.segundos = 0;
     }
 
     public EjercicioUsuario(String id_ejercicio,String id_usuario, String nombre, String zona, String objetivo, String descripcion) {

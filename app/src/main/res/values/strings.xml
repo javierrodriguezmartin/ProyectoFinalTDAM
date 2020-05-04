@@ -24,4 +24,14 @@
     <string name="modificar">Modificar</string>
     <string name="eliminar_usuario">Eliminar Usuario</string>
     <string name="Buscar" />
+    <string name="nombreUsuListar">Nombre:</string>
+    <string name="tipoUsuListar">Tipo:</string>
+    <string name="apellidos">Apellidos:</string>
+    <string name="fechaAltaUsuListar">Fecha de Alta:</string>
+    <string name="telUsuVer">Telefono:</string>
+    <string name="apeUsuVer">Apellidos:</string>
+    <string name="nomUsuVer">Nombre:</string>
+    <string name="direcUsuVer">Direccion:</string>
+    <string name="faltaUsuVer">Fecha de alta:</string>
+    <string name="emUsuVer">Email:</string>
 </resources>

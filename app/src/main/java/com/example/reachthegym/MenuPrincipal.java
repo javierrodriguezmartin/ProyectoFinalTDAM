@@ -29,11 +29,10 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
                 switch (menuItem.getItemId()) {
                     case R.id.action_add:
 
-                        ListarUsuariosAdmin listarUsuariosAdmin = ListarUsuariosAdmin.newInstance("", "");
-                            loadFragment(listarUsuariosAdmin).commit();
-
-
+                        ListarUsuariosAdmin listarUsuariosAdmin = ListarUsuariosAdmin.newInstance("","");
+                        loadFragment(listarUsuariosAdmin).commit();
                         break;
+
                     case R.id.action_camera:
 
                             //FragmentProducto frag_prod = FragmentProducto.newInstance(tipo, tipo);
@@ -68,11 +67,19 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
         return getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                .addToBackStack(null)
                 .replace(R.id.frame_principal, loadFrag);
     }
 
     @Override
     public void onFragmentMessage(String data1, String data) {
 
+    }
+    public void onBackPressed(){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
