@@ -1,6 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AnadirEjercicioAdmin" />
+    tools:context=".fragments.AnadirEjercicioAdmin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="123dp">
+
+            <ImageView
+                android:id="@+id/img_ejer_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/anadir" />
+
+            <ImageView
+                android:id="@+id/img_ejer_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/anadir" />
+
+            <ImageView
+                android:id="@+id/img_ejer_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/anadir" />
+
+            <ImageView
+                android:id="@+id/img_ejer_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/anadir" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/nombre_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:hint="@string/nombre_registro"/>
+
+            <EditText
+                android:id="@+id/zona_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:hint="@string/zonaEjercicio"/>
+
+            <EditText
+                android:id="@+id/objetivo_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:hint="@string/objetivoEjercicio"/>
+
+            <EditText
+                android:id="@+id/descripcion_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:hint="@string/descripcionEjercicio"/>
+
+            <Button
+                android:id="@+id/anadir_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/anadirEjercicio" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

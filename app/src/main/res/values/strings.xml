@@ -34,4 +34,9 @@
     <string name="direcUsuVer">Direccion:</string>
     <string name="faltaUsuVer">Fecha de alta:</string>
     <string name="emUsuVer">Email:</string>
+    <string name="nombreEjercicio">Nombre</string>
+    <string name="zonaEjercicio">Zona</string>
+    <string name="objetivoEjercicio">Objetivo Ejercicio</string>
+    <string name="descripcionEjercicio">Inserte una descripción para el ejercicio</string>
+    <string name="anadirEjercicio">Añadir</string>
 </resources>

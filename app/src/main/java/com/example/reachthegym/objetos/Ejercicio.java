@@ -5,7 +5,6 @@ import android.net.Uri;
 public class Ejercicio {
 
     private String id_ejercicio,nombre,zona,objetivo,descripcion;
-    private int series,repeticiones,minutos,segundos;
     private Uri img_url;
 
 
@@ -14,10 +13,7 @@ public class Ejercicio {
         this.zona = "";
         this.objetivo = "";
         this.descripcion = "";
-        this.series = 0;
-        this.repeticiones = 0;
-        this.minutos = 0;
-        this.segundos = 0;
+
     }
 
     public Ejercicio(String id_ejercicio,String nombre, String zona, String objetivo, String descripcion) {

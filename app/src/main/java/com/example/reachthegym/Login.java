@@ -64,13 +64,16 @@ public class Login extends AppCompatActivity {
                                      DataSnapshot hijo = dataSnapshot.getChildren().iterator().next();
                                      String pw = hijo.getValue(Usuario.class).getContrasena();
                                      String ide = hijo.getValue(Usuario.class).getId();
+                                     String tipo = hijo.getValue(Usuario.class).getTipo().toLowerCase();
 
                                      if (pw.equals(contra.getText().toString().trim())){
 
                                          SharedPreferences prefs = getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
                                          SharedPreferences.Editor editor = prefs.edit();
                                          editor.putString("id_usuario",ide);
-                                         editor.commit();
+                                         editor.putString("tipo_usuario",tipo);
+
+                                         editor.apply();
 
                                          Intent i = new Intent(getApplicationContext(),MenuPrincipal.class);
                                          startActivity(i);

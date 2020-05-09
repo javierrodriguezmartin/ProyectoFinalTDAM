@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.reachthegym.fragments.AnadirEjercicioAdmin;
 import com.example.reachthegym.fragments.ListarUsuariosAdmin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,21 +36,22 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
 
                     case R.id.action_camera:
 
-                            //FragmentProducto frag_prod = FragmentProducto.newInstance(tipo, tipo);
-                            //loadFragment(frag_prod).commit();
-
+                        AnadirEjercicioAdmin anadirEjercicioAdmin = AnadirEjercicioAdmin.newInstance("","");
+                        loadFragment(anadirEjercicioAdmin).commit();
                         break;
+
                     case R.id.action_search:
 
                             //FragmentMapa frag_mapa = FragmentMapa.newInstance(tipo, tipo);
                             //loadFragment(frag_mapa).commit();
-
-
                         break;
+
+
                     case R.id.action_settings:
                         //AnadirReserva frag_ana_res = AnadirReserva.newInstance(tipo,tipo);
                         //loadFragment(frag_ana_res).commit();
                         break;
+
                     case R.id.action_navi:
 
 
