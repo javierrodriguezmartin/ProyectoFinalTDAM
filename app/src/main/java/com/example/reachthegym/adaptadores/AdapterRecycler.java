@@ -87,7 +87,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
         return lista_usuario.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         //Probando a usar ButterKnife
         @BindView(R.id.img_listar_admin)
