@@ -4,26 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
-import com.example.reachthegym.adaptadores.AdapterListarEjercicios;
 import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.EjercicioEmpleado;
-import com.example.reachthegym.objetos.Usuario;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,38 +27,54 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.views.BannerSlider;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ListarEjercicios#newInstance} factory method to
+ * Use the {@link VerEjercicio#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListarEjercicios extends Fragment {
+public class VerEjercicio extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.buscadorListarEjercicios)
-    EditText buscadorListarEjercicios;
-    @BindView(R.id.recy_ejercicios)
-    RecyclerView recyEjercicios;
+    @BindView(R.id.bannerEjercicios)
+    BannerSlider bannerEjercicios;
+    @BindView(R.id.textView2)
+    TextView textView2;
+    @BindView(R.id.textView3)
+    TextView textView3;
+    @BindView(R.id.textView4)
+    TextView textView4;
+    @BindView(R.id.textView5)
+    TextView textView5;
+    @BindView(R.id.nombre_ver_ejercicio)
+    TextView nombreVerEjercicio;
+    @BindView(R.id.zona_ver_Ejercicio)
+    TextView zonaVerEjercicio;
+    @BindView(R.id.objetivo_ver_ejercicio)
+    TextView objetivoVerEjercicio;
+    @BindView(R.id.descripcion_ver_ejercicio)
+    TextView descripcionVerEjercicio;
+    @BindView(R.id.btn_borrar_ejercicio)
+    Button btnBorrarEjercicio;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionList mListener;
-    private Unbinder unbinder;
-    private ArrayList<Ejercicio> lista_ejercicios;
-    private ArrayList<EjercicioEmpleado> lista_ejercicios_empleado;
     private DatabaseReference ref;
     private StorageReference sto;
-    private AdapterListarEjercicios adapter;
 
-    public ListarEjercicios() {
+
+    public VerEjercicio() {
         // Required empty public constructor
     }
 
@@ -74,11 +84,11 @@ public class ListarEjercicios extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListarEjercicios.
+     * @return A new instance of fragment VerEjercicio.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListarEjercicios newInstance(String param1, String param2) {
-        ListarEjercicios fragment = new ListarEjercicios();
+    public static VerEjercicio newInstance(String param1, String param2) {
+        VerEjercicio fragment = new VerEjercicio();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -98,20 +108,35 @@ public class ListarEjercicios extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_listar_ejercicios, container, false);
+        View vista = inflater.inflate(R.layout.fragment_ver_ejercicio, container, false);
         ButterKnife.bind(this,vista);
-
-        lista_ejercicios = new ArrayList<>();
-        lista_ejercicios_empleado = new ArrayList<>();
-
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
+        final Ejercicio pojo_ejercicio;
+        final EjercicioEmpleado[] pojo_ejercicio_empleado = new EjercicioEmpleado[1];
 
+        SharedPreferences pref = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
+        String tipo_usuario = pref.getString("tipo_usuario","no hay nada");
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
-        String tipo_usuario = prefs.getString("tipo_usuario","no hay nada");
-        Toast.makeText(getContext(), tipo_usuario, Toast.LENGTH_SHORT).show();
+        List<Banner> banners = new ArrayList<>();
+        ArrayList <Uri> array_imagenes = new ArrayList<>();
 
+        for (int i=0; i<4; i++){
+            sto.child("centro").child("imagenes").child("ejercicios_empleado").child(mParam1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+
+                    array_imagenes.add(uri);
+
+                }
+            });
+        }
+
+        for (int i=0; i<array_imagenes.size(); i++){
+            banners.add(new RemoteBanner(array_imagenes.get(i).toString()));
+        }
+
+        bannerEjercicios.setBanners(banners);
 
 
 
@@ -119,19 +144,15 @@ public class ListarEjercicios extends Fragment {
 
             ref.child("centro")
                     .child("ejercicios_empleado")
-                    .addValueEventListener(new ValueEventListener() {
+                    .child(mParam1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            lista_ejercicios.clear();
-                            lista_ejercicios_empleado.clear();
-
-                            for(DataSnapshot hijo: dataSnapshot.getChildren()){
-                                EjercicioEmpleado pojo_ejercicio = hijo.getValue(EjercicioEmpleado.class);
-                                lista_ejercicios.add(convertirObjeto(pojo_ejercicio));
-                                adapter.notifyDataSetChanged();
-                            }
-
-
+                            EjercicioEmpleado pojo_ejercicio = dataSnapshot.getValue(EjercicioEmpleado.class);
+                            nombreVerEjercicio.setText(pojo_ejercicio.getNombre());
+                            zonaVerEjercicio.setText(pojo_ejercicio.getZona());
+                            objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
+                            descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
                         }
 
                         @Override
@@ -140,22 +161,19 @@ public class ListarEjercicios extends Fragment {
                         }
                     });
 
-
         }else{
 
             ref.child("centro")
                     .child("ejercicios")
-                    .addValueEventListener(new ValueEventListener() {
+                    .child(mParam1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            lista_ejercicios.clear();
-
-                            for (DataSnapshot hijo: dataSnapshot.getChildren()){
-                                Ejercicio pojo_ejercicio = hijo.getValue(Ejercicio.class);
-                                lista_ejercicios.add(pojo_ejercicio);
-                                adapter.notifyDataSetChanged();
-                            }
-
+                            Ejercicio pojo_ejercicio = dataSnapshot.getValue(Ejercicio.class);
+                            nombreVerEjercicio.setText(pojo_ejercicio.getNombre());
+                            zonaVerEjercicio.setText(pojo_ejercicio.getZona());
+                            objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
+                            descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
 
                         }
 
@@ -166,27 +184,6 @@ public class ListarEjercicios extends Fragment {
                     });
 
         }
-
-        adapter = new AdapterListarEjercicios(lista_ejercicios,getActivity());
-        recyEjercicios.setLayoutManager(new GridLayoutManager(getContext(),1));
-        recyEjercicios.setAdapter(adapter);
-
-        buscadorListarEjercicios.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filtrar(s.toString());
-            }
-        });
 
 
 
@@ -217,29 +214,6 @@ public class ListarEjercicios extends Fragment {
         mListener = null;
     }
 
-    public Ejercicio convertirObjeto (EjercicioEmpleado ejercicioEmpleado){
-        String nombre,zona,objetivo,id;
-
-        nombre = ejercicioEmpleado.getNombre();
-        zona = ejercicioEmpleado.getZona();
-        objetivo = ejercicioEmpleado.getObjetivo();
-        id = ejercicioEmpleado.getId_ejercicio();
-
-        return new Ejercicio(id,nombre,zona,objetivo,"");
-
-    }
-    public void filtrar(String texto){
-        ArrayList<Ejercicio> filtrarLista = new ArrayList<>();
-
-        for (Ejercicio ejercicio: lista_ejercicios){
-
-            if (ejercicio.getNombre().toLowerCase().contains(texto.toLowerCase())){
-                filtrarLista.add(ejercicio);
-            }
-
-            adapter.filtrar(filtrarLista);
-        }
-
-    }
-
 }
+
+

@@ -12,10 +12,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView2"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:scaleType="fitXY"
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
         <LinearLayout
@@ -25,47 +24,47 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/nom_eje_listar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/nombreListar" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/obje_eje_listar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/objetivoListar" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/desc_eje_listar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/zonaListar" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/nombre_ejercicio_listar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/objetivo_ejercicio_listar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/zona_ejercicio_objetivo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="" />
         </LinearLayout>
 
     </LinearLayout>

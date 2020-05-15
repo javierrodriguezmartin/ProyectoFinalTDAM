@@ -89,6 +89,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private final Context mContext;
         //Probando a usar ButterKnife
         @BindView(R.id.img_listar_admin)
          ImageView imgListarAdmin;

@@ -72,7 +72,7 @@ public class AnadirEjercicioAdmin extends Fragment {
     Button anadirEjercicio;
     private final static int seleccionar_img=1;
     private Unbinder unbinder;
-    private Uri img_url,img_url1,img_url2,img_url3;
+    private Uri img_url;
     private ArrayList<Uri> array_imagenes = new ArrayList<>();
     private DatabaseReference ref;
     private StorageReference sto;
@@ -121,9 +121,6 @@ public class AnadirEjercicioAdmin extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_anadir_ejercicio_admin, container, false);
         unbinder = ButterKnife.bind(this,vista);
         img_url=null;
-        img_url1=null;
-        img_url2=null;
-        img_url3=null;
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
         final String tipo_usuario;
@@ -200,7 +197,7 @@ public class AnadirEjercicioAdmin extends Fragment {
 
                                 String id_ejercicio_emp = ref.child("centro").child("ejercicios_empleados").push().getKey();
                                 Ejercicio pojo_ejercicio = new EjercicioEmpleado(id_ejercicio_emp,nombre,zona,objetivo,descripcion,id_usuario);
-                                ref.child("centro").child(" ejercicios_empleado").child(id_ejercicio_emp).setValue(pojo_ejercicio);
+                                ref.child("centro").child("ejercicios_empleado").child(id_ejercicio_emp).setValue(pojo_ejercicio);
 
                                 for (Uri item : array_imagenes){
                                     String clave = ref.child("centro").push().getKey();

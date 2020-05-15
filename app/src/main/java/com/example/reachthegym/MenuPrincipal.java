@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.reachthegym.fragments.AnadirEjercicioAdmin;
+import com.example.reachthegym.fragments.ListarEjercicios;
 import com.example.reachthegym.fragments.ListarUsuariosAdmin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -42,8 +43,8 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
 
                     case R.id.action_search:
 
-                            //FragmentMapa frag_mapa = FragmentMapa.newInstance(tipo, tipo);
-                            //loadFragment(frag_mapa).commit();
+                        ListarEjercicios listarEjercicios = ListarEjercicios.newInstance("","");
+                        loadFragment(listarEjercicios).commit();
                         break;
 
 

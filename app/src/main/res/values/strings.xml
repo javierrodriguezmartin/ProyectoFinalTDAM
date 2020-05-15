@@ -39,4 +39,13 @@
     <string name="objetivoEjercicio">Objetivo Ejercicio</string>
     <string name="descripcionEjercicio">Inserte una descripción para el ejercicio</string>
     <string name="anadirEjercicio">Añadir</string>
+    <string name="nombreListar">Nombre</string>
+    <string name="objetivoListar">Objetivo</string>
+    <string name="zonaListar">Zona</string>
+    <string name="nombreEjer">Nombre:</string>
+    <string name="zonaEjeri">Zona:</string>
+    <string name="nombreEjerci">Nombre:</string>
+    <string name="objetivoEjerci">Objetivo:</string>
+    <string name="descripcionEjerc">Descripción:</string>
+    <string name="borrarEjer">Borrar</string>
 </resources>
