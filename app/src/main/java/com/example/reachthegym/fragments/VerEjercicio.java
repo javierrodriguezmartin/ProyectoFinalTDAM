@@ -8,13 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
+import com.example.reachthegym.adaptadores.AdapterImgHorizontal;
+import com.example.reachthegym.adaptadores.AdapterListarEjercicios;
 import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.EjercicioEmpleado;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,13 +33,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ss.com.bannerslider.banners.Banner;
-import ss.com.bannerslider.banners.RemoteBanner;
-import ss.com.bannerslider.views.BannerSlider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,26 +47,28 @@ public class VerEjercicio extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.bannerEjercicios)
-    BannerSlider bannerEjercicios;
+
+    @BindView((R.id.recy_imagenes_ejercicio))
+    RecyclerView recyImagenesEjercicio;
+    @BindView(R.id.textView)
+    TextView textView;
     @BindView(R.id.textView2)
     TextView textView2;
     @BindView(R.id.textView3)
     TextView textView3;
     @BindView(R.id.textView4)
     TextView textView4;
-    @BindView(R.id.textView5)
-    TextView textView5;
     @BindView(R.id.nombre_ver_ejercicio)
     TextView nombreVerEjercicio;
-    @BindView(R.id.zona_ver_Ejercicio)
-    TextView zonaVerEjercicio;
     @BindView(R.id.objetivo_ver_ejercicio)
     TextView objetivoVerEjercicio;
+    @BindView(R.id.zona_ver_ejercicio)
+    TextView zonaVerEjercicio;
     @BindView(R.id.descripcion_ver_ejercicio)
     TextView descripcionVerEjercicio;
-    @BindView(R.id.btn_borrar_ejercicio)
-    Button btnBorrarEjercicio;
+    @BindView(R.id.button)
+    Button borrar;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,6 +76,8 @@ public class VerEjercicio extends Fragment {
     private OnFragmentInteractionList mListener;
     private DatabaseReference ref;
     private StorageReference sto;
+    private ArrayList<String> url;
+    private AdapterImgHorizontal adapter;
 
 
     public VerEjercicio() {
@@ -109,38 +115,42 @@ public class VerEjercicio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_ver_ejercicio, container, false);
-        ButterKnife.bind(this,vista);
+        ButterKnife.bind(this, vista);
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
         final Ejercicio pojo_ejercicio;
         final EjercicioEmpleado[] pojo_ejercicio_empleado = new EjercicioEmpleado[1];
 
-        SharedPreferences pref = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
-        String tipo_usuario = pref.getString("tipo_usuario","no hay nada");
+        SharedPreferences pref = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+        String tipo_usuario = pref.getString("tipo_usuario", "no hay nada");
 
-        List<Banner> banners = new ArrayList<>();
-        ArrayList <Uri> array_imagenes = new ArrayList<>();
+        ArrayList<Uri> array_imagenes = new ArrayList<>();
 
-        for (int i=0; i<4; i++){
-            sto.child("centro").child("imagenes").child("ejercicios_empleado").child(mParam1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        for(int i=0;i<4;i++){
+
+            sto.child("centro").child("imagenes").child("ejercicios_empleado").child(""+mParam1+"").child("foto"+i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
 
                     array_imagenes.add(uri);
+                    adapter.notifyDataSetChanged();
 
                 }
             });
         }
 
-        for (int i=0; i<array_imagenes.size(); i++){
-            banners.add(new RemoteBanner(array_imagenes.get(i).toString()));
+        for(int i=0; i<array_imagenes.size();i++){
+            url.add(array_imagenes.get(i).toString());
         }
 
-        bannerEjercicios.setBanners(banners);
+        adapter = new AdapterImgHorizontal(array_imagenes,getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyImagenesEjercicio.setLayoutManager(layoutManager);
+        recyImagenesEjercicio.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
 
-
-        if (tipo_usuario.equalsIgnoreCase("empleado")){
+        if (tipo_usuario.equalsIgnoreCase("empleado")) {
 
             ref.child("centro")
                     .child("ejercicios_empleado")
@@ -161,7 +171,7 @@ public class VerEjercicio extends Fragment {
                         }
                     });
 
-        }else{
+        } else {
 
             ref.child("centro")
                     .child("ejercicios")
@@ -185,6 +195,30 @@ public class VerEjercicio extends Fragment {
 
         }
 
+        /*
+
+        borrarUsuVer.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if(pojo_usuario.getTipo().toLowerCase().equals("empleado")){
+                                            Toast.makeText(getContext(), "El usuario no puede borrarse, puede que tenga clientes a su cargo", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            ref.child("centro").child("usuarios").child(pojo_usuario.getId()).removeValue();
+                                            Toast.makeText(getContext(), "Usuario borrado correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                });
+         */
+
+        borrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tipo_usuario.equalsIgnoreCase("empleado")){
+
+                }
+            }
+        });
 
 
         return vista;

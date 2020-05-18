@@ -110,8 +110,6 @@ public class ListarEjercicios extends Fragment {
 
         SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
         String tipo_usuario = prefs.getString("tipo_usuario","no hay nada");
-        Toast.makeText(getContext(), tipo_usuario, Toast.LENGTH_SHORT).show();
-
 
 
 

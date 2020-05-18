@@ -48,4 +48,11 @@
     <string name="objetivoEjerci">Objetivo:</string>
     <string name="descripcionEjerc">Descripción:</string>
     <string name="borrarEjer">Borrar</string>
+    <string name="men_opciones">Menú Opciones</string>
+    <string name="listar_usuarios">Listar Usuarios</string>
+    <string name="a_adir_competici_n">Añadir Competición</string>
+    <string name="a_adir_rutina_cliente">Añadir Rutina Cliente</string>
+    <string name="crear_clase">Crear Clase</string>
+    <string name="crear_rutina">Crear Rutina</string>
+    <string name="borrarVerEJercicio">Borrar</string>
 </resources>

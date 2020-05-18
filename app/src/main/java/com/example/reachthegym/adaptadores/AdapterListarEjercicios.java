@@ -18,6 +18,7 @@ import com.example.reachthegym.R;
 import com.example.reachthegym.fragments.VerEjercicio;
 import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.Usuario;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -64,7 +65,14 @@ public class AdapterListarEjercicios extends RecyclerView.Adapter<AdapterListarE
         holder.objetivoEjercicioListar.setText(pojo_ejercicio.getObjetivo());
         holder.zonaEjercicioObjetivo.setText(pojo_ejercicio.getZona());
 
-        Glide.with(mContext).load(sto.child("centro").child("imagenes").child(pojo_ejercicio.getId_ejercicio()).getDownloadUrl()).into(holder.imageView2);
+        sto.child("centro").child("imagenes").child("ejercicios_empleado").child(pojo_ejercicio.getId_ejercicio()).child("foto0").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Glide.with(mContext).load(uri).into(holder.imageView2);
+
+            }
+        });
         Toast.makeText(mContext,sto.child("centro").child("imagenes").child("imagenes_ejercicios").child(pojo_ejercicio.getId_ejercicio()).getDownloadUrl().toString(), Toast.LENGTH_SHORT).show();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

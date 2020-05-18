@@ -9,10 +9,8 @@
 
     <FrameLayout
         android:id="@+id/frame_principal"
-        android:layout_width="360dp"
-        android:layout_height="580dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/menuBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +20,10 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menuBottom"
-        android:layout_width="363dp"
-        android:layout_height="62dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame_principal"
         app:menu="@menu/bottom_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

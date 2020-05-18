@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.reachthegym.fragments.AnadirEjercicioAdmin;
+import com.example.reachthegym.fragments.FragmentDashboard;
 import com.example.reachthegym.fragments.ListarEjercicios;
 import com.example.reachthegym.fragments.ListarUsuariosAdmin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,10 +50,9 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
 
 
                     case R.id.action_settings:
-                        //AnadirReserva frag_ana_res = AnadirReserva.newInstance(tipo,tipo);
-                        //loadFragment(frag_ana_res).commit();
+                        FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+                        loadFragment(fragmentDashboard).commit();
                         break;
-
                     case R.id.action_navi:
 
 

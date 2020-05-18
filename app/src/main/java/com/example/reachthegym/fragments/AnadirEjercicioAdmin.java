@@ -187,8 +187,10 @@ public class AnadirEjercicioAdmin extends Fragment {
                                 Ejercicio pojo_ejercicio = new Ejercicio(id_ejercicio,nombre,zona,objetivo,descripcion);
                                 ref.child("centro").child("ejercicios").child(id_ejercicio).setValue(pojo_ejercicio);
 
+                                int i = 0;
                                 for (Uri item:array_imagenes){
-                                    sto.child("centro").child("imagenes").child("ejercicios").child(id_ejercicio).putFile(item);
+                                    sto.child("centro").child("imagenes").child("ejercicios").child(id_ejercicio).child("foto"+i).putFile(item);
+                                    i++;
                                 }
                                 Toast.makeText(getActivity(), "Ejercicio administrador añadido", Toast.LENGTH_SHORT).show();
                                 cerrarFragment();
@@ -199,9 +201,10 @@ public class AnadirEjercicioAdmin extends Fragment {
                                 Ejercicio pojo_ejercicio = new EjercicioEmpleado(id_ejercicio_emp,nombre,zona,objetivo,descripcion,id_usuario);
                                 ref.child("centro").child("ejercicios_empleado").child(id_ejercicio_emp).setValue(pojo_ejercicio);
 
+                                int i = 0;
                                 for (Uri item : array_imagenes){
-                                    String clave = ref.child("centro").push().getKey();
-                                    sto.child("centro").child("imagenes").child("ejercicios_empleado").child(id_ejercicio_emp).child(clave).putFile(item);
+                                    sto.child("centro").child("imagenes").child("ejercicios_empleado").child(id_ejercicio_emp).child("foto"+i).putFile(item);
+                                    i++;
                                 }
                                 Toast.makeText(getActivity(), "Ejercicio añadido a tu lista de ejercicios", Toast.LENGTH_SHORT).show();
                                 cerrarFragment();
