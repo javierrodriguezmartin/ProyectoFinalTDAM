@@ -55,4 +55,13 @@
     <string name="crear_clase">Crear Clase</string>
     <string name="crear_rutina">Crear Rutina</string>
     <string name="borrarVerEJercicio">Borrar</string>
+    <string name="nombreClaese">Nombre</string>
+    <string name="descripcionClase">Descripción</string>
+    <string name="aulaClase">Aula</string>
+    <string name="diaClase">Dia</string>
+    <string name="horaClase">Hora inicio</string>
+    <string name="horaFinalClase">Hora Finalización</string>
+    <string name="anadirClase">Añadir</string>
+    <string name="imagenitem">imagenitem</string>
+    <string name="asistirListar">Asistir</string>
 </resources>

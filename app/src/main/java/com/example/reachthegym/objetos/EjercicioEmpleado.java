@@ -2,9 +2,12 @@ package com.example.reachthegym.objetos;
 
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class EjercicioEmpleado extends Ejercicio  {
     private String id_empleado;
     private Uri img_url;
+    private ArrayList<String> clientes_asignados;
 
 
     public EjercicioEmpleado() {
@@ -14,6 +17,14 @@ public class EjercicioEmpleado extends Ejercicio  {
     public EjercicioEmpleado(String id_ejercicio, String nombre, String zona, String objetivo, String descripcion, String id_empleado) {
         super(id_ejercicio, nombre, zona, objetivo, descripcion);
         this.id_empleado = id_empleado;
+    }
+
+    public ArrayList<String> getClientes_asignados() {
+        return clientes_asignados;
+    }
+
+    public void setClientes_asignados(ArrayList<String> clientes_asignados) {
+        this.clientes_asignados = clientes_asignados;
     }
 
     public String getId_empleado() {

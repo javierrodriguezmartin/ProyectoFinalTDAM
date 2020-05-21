@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -195,26 +196,18 @@ public class VerEjercicio extends Fragment {
 
         }
 
-        /*
-
-        borrarUsuVer.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if(pojo_usuario.getTipo().toLowerCase().equals("empleado")){
-                                            Toast.makeText(getContext(), "El usuario no puede borrarse, puede que tenga clientes a su cargo", Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            ref.child("centro").child("usuarios").child(pojo_usuario.getId()).removeValue();
-                                            Toast.makeText(getContext(), "Usuario borrado correctamente", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-                                });
-         */
-
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (tipo_usuario.equalsIgnoreCase("empleado")){
+
+                    ref.child("centro").child("ejercicios_empleado").child(""+mParam1+"").removeValue();
+                    Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    ref.child("centro").child("ejercicios").child(""+mParam1+"").removeValue();
+                    Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
 
                 }
             }

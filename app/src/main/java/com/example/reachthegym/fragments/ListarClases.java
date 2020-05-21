@@ -15,10 +15,10 @@ import com.example.reachthegym.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AnadirCompeticion#newInstance} factory method to
+ * Use the {@link ListarClases#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AnadirCompeticion extends Fragment {
+public class ListarClases extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class AnadirCompeticion extends Fragment {
     private String mParam2;
     private OnFragmentInteractionList mListener;
 
-    public AnadirCompeticion() {
+    public ListarClases() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class AnadirCompeticion extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AnadirCompeticion.
+     * @return A new instance of fragment ListarClases.
      */
     // TODO: Rename and change types and number of parameters
-    public static AnadirCompeticion newInstance(String param1, String param2) {
-        AnadirCompeticion fragment = new AnadirCompeticion();
+    public static ListarClases newInstance(String param1, String param2) {
+        ListarClases fragment = new ListarClases();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,12 +63,11 @@ public class AnadirCompeticion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_anadir_competicion, container, false);
+        View vista = inflater.inflate(R.layout.fragment_listar_clases, container, false);
 
 
         return vista;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -93,4 +92,7 @@ public class AnadirCompeticion extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+
 }

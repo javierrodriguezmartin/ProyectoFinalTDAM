@@ -43,7 +43,7 @@
             android:rowCount="3"
             >
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/listar_usuarios_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,9 +79,9 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/anadir_rutina_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,9 +117,9 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/anadir_ejercicio_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,9 +155,9 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/anadir_competi_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -193,9 +193,9 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/anadir_clase_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -231,9 +231,9 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/crear_rutina_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -269,7 +269,7 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
 
         </GridLayout>

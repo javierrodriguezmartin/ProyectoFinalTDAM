@@ -142,6 +142,9 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
+                AnadirClase anadirClase = AnadirClase.newInstance("","");
+                loadFragment(anadirClase).commit();
+
             }
         });
 
