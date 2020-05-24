@@ -2,6 +2,7 @@ package com.example.reachthegym.adaptadores;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.reachthegym.R;
 import com.example.reachthegym.fragments.VerClase;
 import com.example.reachthegym.objetos.ClaseGimnasio;
 import com.example.reachthegym.objetos.Ejercicio;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -68,10 +70,10 @@ public class AdapterListarClases extends RecyclerView.Adapter<AdapterListarClase
 
         final ArrayList<String> lista_participantes = pojo_clase.getClientes_apuntados();
 
-        if (lista_participantes.size()==0){
+        if (lista_participantes.size()==1){
             actual = 0;
         }else{
-            actual = lista_participantes.size();
+            actual = lista_participantes.size()-1;
         }
 
         max = pojo_clase.getCapacidad_maxima();
@@ -80,7 +82,13 @@ public class AdapterListarClases extends RecyclerView.Adapter<AdapterListarClase
         holder.nombreClaseListar.setText(pojo_clase.getNombre());
         holder.clienteApuntadosListar.setText(comparacion_capacidad);
 
-        Glide.with(mContext).load(sto.child("centro").child("imagenes").child("imagenes_clases").child(pojo_clase.getId_clase()).getDownloadUrl()).into(holder.imagenListarClase);
+        sto.child("centro").child("imagenes").child("imagenes_clase").child(pojo_clase.getId_clase()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(mContext).load(uri).into(holder.imagenListarClase);
+            }
+        });
+
 
         holder.imagenListarClase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,16 +105,25 @@ public class AdapterListarClases extends RecyclerView.Adapter<AdapterListarClase
         holder.asistirClasesListar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (lista_participantes.size()>20){
-                    Toast.makeText(mContext, "La clase está completa", Toast.LENGTH_SHORT).show();
-                }else if(estaEnLista(lista_participantes,id_usuario)){
-                    Toast.makeText(mContext, "Ya estás apuntado a esta clase", Toast.LENGTH_SHORT).show();
-                }else{
+                if (lista_participantes.size()==1){
                     lista_participantes.add(id_usuario);
                     pojo_clase.setClientes_apuntados(lista_participantes);
                     ref.child("centro").child("clases").child(pojo_clase.getId_clase()).setValue(pojo_clase);
                     Toast.makeText(mContext, "Te has apuntado a la clase correctamente", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    if (lista_participantes.size()>21){
+                        Toast.makeText(mContext, "La clase está completa", Toast.LENGTH_SHORT).show();
+                    }else if(estaEnLista(lista_participantes,id_usuario)){
+                        Toast.makeText(mContext, "Ya estás apuntado a esta clase", Toast.LENGTH_SHORT).show();
+                    }else{
+                        lista_participantes.add(id_usuario);
+                        pojo_clase.setClientes_apuntados(lista_participantes);
+                        ref.child("centro").child("clases").child(pojo_clase.getId_clase()).setValue(pojo_clase);
+                        Toast.makeText(mContext, "Te has apuntado a la clase correctamente", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
         });
 

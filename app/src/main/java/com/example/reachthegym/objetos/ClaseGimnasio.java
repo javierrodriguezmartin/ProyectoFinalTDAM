@@ -9,7 +9,19 @@ public class ClaseGimnasio  {
     private ArrayList<String> clientes_apuntados;
 
 
-    public ClaseGimnasio(String id_clase, String nombre, String descripcion, String aula, int hora_inicio, int hora_finalizacion,String dia) {
+    public ClaseGimnasio() {
+        this.id_clase = "";
+        this.nombre = "";
+        this.descripcion = "";
+        this.aula = "";
+        this.hora_inicio = 0;
+        this.hora_finalizacion = 0;
+        this.capacidad_maxima = 20;
+        this.dia = "";
+        this.clientes_apuntados = null;
+    }
+
+    public ClaseGimnasio(String id_clase, String nombre, String descripcion, String aula, int hora_inicio, int hora_finalizacion,String dia,ArrayList<String> lista) {
         this.id_clase = id_clase;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -18,6 +30,7 @@ public class ClaseGimnasio  {
         this.hora_finalizacion = hora_finalizacion;
         this.capacidad_maxima = 20;
         this.dia = dia;
+        this.clientes_apuntados = lista;
     }
 
     public String getId_clase() {

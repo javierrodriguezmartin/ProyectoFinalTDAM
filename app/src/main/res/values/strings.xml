@@ -5,6 +5,14 @@
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="registrarse">Registrarse</string>
 
+    <string-array name="dias_semana">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nombre_registro">Nombre</string>
@@ -66,4 +74,5 @@
     <string name="asistirListar">Asistir</string>
     <string name="aulaVerClase">Aula:</string>
     <string name="diaVerClase">Dia:</string>
+    <string name="diaDeLaSemana">Dia de la semana:</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.reachthegym.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.text.UnicodeSetSpanner;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,39 +108,51 @@ public class AnadirClase extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_anadir_clase, container, false);
         ButterKnife.bind(this, vista);
 
+        SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
+        final String id_usuario = prefs.getString("id_usuario","nada");
+
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
 
-            if (nombreCrearClase.getText().toString().trim().isEmpty() && descripcionCrearClase.getText().toString().trim().isEmpty()
-            && horaCrearClase.getText().toString().trim().isEmpty() && horaFinalClase.getText().toString().trim().isEmpty()
-            && aulaCrearClase.getText().toString().trim().isEmpty() && diaCrearClase.getText().toString().trim().isEmpty()){
+        anadirClase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (nombreCrearClase.getText().toString().trim().isEmpty() && descripcionCrearClase.getText().toString().trim().isEmpty()
+                        && horaCrearClase.getText().toString().trim().isEmpty() && horaFinalClase.getText().toString().trim().isEmpty()
+                        && aulaCrearClase.getText().toString().trim().isEmpty() && diaCrearClase.getText().toString().trim().isEmpty()){
 
-                Toast.makeText(getContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
 
-            }else{
+                }else{
 
-                String nombre,descripcion,aula,dia;
-                int hora_ini,hora_final;
-                nombre = nombreCrearClase.getText().toString().trim();
-                descripcion = descripcionCrearClase.getText().toString().trim();
-                hora_ini = Integer.parseInt(horaCrearClase.getText().toString());
-                hora_final = Integer.parseInt(horaFinalClase.getText().toString());
-                aula = aulaCrearClase.getText().toString().trim();
-                dia = diaCrearClase.getText().toString().trim();
+                    String nombre,descripcion,aula,dia;
+                    int hora_ini,hora_final;
+                    nombre = nombreCrearClase.getText().toString().trim();
+                    descripcion = descripcionCrearClase.getText().toString().trim();
+                    hora_ini = Integer.parseInt(horaCrearClase.getText().toString());
+                    hora_final = Integer.parseInt(horaFinalClase.getText().toString());
+                    aula = aulaCrearClase.getText().toString().trim();
+                    dia = diaCrearClase.getText().toString().trim();
+
+                    ArrayList<String> lista = new ArrayList<>();
+                    lista.add(id_usuario);
+
+                    String id = ref.child("centro").child("clases").push().getKey();
+                    ClaseGimnasio pojo_clase = new ClaseGimnasio(id,nombre,descripcion,aula,hora_ini,hora_final,dia,lista);
+
+                    ref.child("centro").child("clases").child(id).setValue(pojo_clase);
+
+                    sto.child("centro").child("imagenes").child("imagenes_clase").child(id).putFile(img_url);
+
+                    Toast.makeText(getContext(), "Clase añadida correctamente", Toast.LENGTH_SHORT).show();
+                    cerrarFragment();
 
 
-                String id = ref.child("centro").child("clases").push().getKey();
-                ClaseGimnasio pojo_clase = new ClaseGimnasio(id,nombre,descripcion,aula,hora_ini,hora_final,dia);
-
-                ref.child("centro").child("clases").child(id).setValue(pojo_clase);
-
-                sto.child("centro").child("imagenes").child("imagenes_clase").child(id).putFile(img_url);
-
-                Toast.makeText(getContext(), "Clase añadida correctamente", Toast.LENGTH_SHORT).show();
-
-
-
+                }
             }
+        });
+
+
 
         imgCrearClase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +162,7 @@ public class AnadirClase extends Fragment {
                 startActivityForResult(i,seleccionar_img);
             }
         });
+
 
 
         return vista;
@@ -186,6 +202,10 @@ public class AnadirClase extends Fragment {
             Toast.makeText(getContext(), "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void cerrarFragment(){
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
 }

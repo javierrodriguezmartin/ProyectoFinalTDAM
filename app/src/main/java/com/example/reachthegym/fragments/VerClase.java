@@ -134,7 +134,7 @@ public class VerClase extends Fragment {
             }
         });
 
-        sto.child("centro").child("imagenes").child("imaganes_clase").child(mParam1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        sto.child("centro").child("imagenes").child("imagenes_clase").child(mParam1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 
