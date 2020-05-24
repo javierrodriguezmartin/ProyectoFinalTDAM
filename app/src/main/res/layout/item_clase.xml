@@ -25,12 +25,12 @@
 
             <TextView
                 android:id="@+id/nombre_clase_listar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/cliente_apuntados_listar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/huecos_clase_listar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 

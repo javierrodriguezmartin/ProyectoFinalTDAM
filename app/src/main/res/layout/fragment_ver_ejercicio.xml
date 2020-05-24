@@ -38,28 +38,28 @@
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombreEjer"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/objetivoEjerci"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/zonaEjeri"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/descripcionEjerc"
                     android:textStyle="bold" />

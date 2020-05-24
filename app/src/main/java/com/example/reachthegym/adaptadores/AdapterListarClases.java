@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
 import com.example.reachthegym.fragments.VerClase;
 import com.example.reachthegym.objetos.ClaseGimnasio;
+import com.example.reachthegym.objetos.Ejercicio;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,6 +34,7 @@ public class AdapterListarClases extends RecyclerView.Adapter<AdapterListarClase
 
 
     private ArrayList<ClaseGimnasio> lista_clases = new ArrayList<>();
+    private ArrayList<ClaseGimnasio> lista_filtro = new ArrayList<>();
     private Context mContext;
     private StorageReference sto;
     private DatabaseReference ref;
@@ -97,6 +99,8 @@ public class AdapterListarClases extends RecyclerView.Adapter<AdapterListarClase
             public void onClick(View v) {
                 if (lista_participantes.size()>20){
                     Toast.makeText(mContext, "La clase está completa", Toast.LENGTH_SHORT).show();
+                }else if(estaEnLista(lista_participantes,id_usuario)){
+                    Toast.makeText(mContext, "Ya estás apuntado a esta clase", Toast.LENGTH_SHORT).show();
                 }else{
                     lista_participantes.add(id_usuario);
                     pojo_clase.setClientes_apuntados(lista_participantes);
@@ -134,6 +138,31 @@ public class AdapterListarClases extends RecyclerView.Adapter<AdapterListarClase
             mContext = itemView.getContext();
         }
 
+    }
+
+    public boolean estaEnLista(ArrayList<String> lista, String id){
+        boolean res=false;
+
+        for (String item: lista){
+            if (item.equalsIgnoreCase(id)){
+                res = true;
+            }
+        }
+
+        return res;
+    }
+
+    public void filtro(String texto){
+
+        if (texto.length() == 0){
+            lista_clases.addAll(lista_filtro);
+        }
+
+    }
+
+    public void filtrar(ArrayList<ClaseGimnasio> filtroClases){
+        this.lista_clases = filtroClases;
+        notifyDataSetChanged();
     }
 
 }

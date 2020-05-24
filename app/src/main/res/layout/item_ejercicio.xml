@@ -25,19 +25,19 @@
 
             <TextView
                 android:id="@+id/nom_eje_listar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nombreListar" />
 
             <TextView
                 android:id="@+id/obje_eje_listar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/objetivoListar" />
 
             <TextView
                 android:id="@+id/desc_eje_listar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/zonaListar" />
         </LinearLayout>

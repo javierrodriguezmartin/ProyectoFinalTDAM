@@ -64,4 +64,6 @@
     <string name="anadirClase">Añadir</string>
     <string name="imagenitem">imagenitem</string>
     <string name="asistirListar">Asistir</string>
+    <string name="aulaVerClase">Aula:</string>
+    <string name="diaVerClase">Dia:</string>
 </resources>
