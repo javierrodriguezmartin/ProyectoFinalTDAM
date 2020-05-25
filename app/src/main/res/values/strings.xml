@@ -76,4 +76,6 @@
     <string name="diaVerClase">Dia:</string>
     <string name="diaDeLaSemana">Dia de la semana:</string>
     <string name="nombre_para_la_rutina">Nombre para la rutina</string>
+    <string name="crearRutina">Crear Rutina</string>
+    <string name="img_item_rutinas">img_item_rutinas</string>
 </resources>

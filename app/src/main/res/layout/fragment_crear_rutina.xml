@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.CrearRutina">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -16,30 +21,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nombre_para_la_rutina" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/listview_ejercicios"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
 
-        <LinearLayout
+        </ListView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bton_crear_rutina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/listview_ejercicios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </ListView>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bton_crear_rutina"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Crear Rutina" />
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+            android:text="@string/crearRutina" />
+    </LinearLayout>
+</ScrollView>

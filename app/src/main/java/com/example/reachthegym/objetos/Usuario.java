@@ -2,10 +2,13 @@ package com.example.reachthegym.objetos;
 
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class Usuario {
 
     private String dni,nombre,apellidos,telefono,direccion,contrasena,tipo,email,id,fecha_alta;
     private Uri img_url;
+    private ArrayList<String> lista_rutinas;
 
     public Usuario() {
         this.dni = "";
@@ -18,6 +21,7 @@ public class Usuario {
         this.email = "";
         this.id = "";
         this.fecha_alta = "";
+        this.lista_rutinas = null;
     }
 
     public Usuario(String dni, String nombre, String apellidos, String telefono, String direccion, String contrasena,String email,String fecha_alta,String id) {
@@ -31,6 +35,7 @@ public class Usuario {
         this.tipo = "cliente";
         this.email = email;
         this.fecha_alta = fecha_alta;
+        this.lista_rutinas = null;
     }
 
     public String getFecha_alta() {
@@ -115,6 +120,14 @@ public class Usuario {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public ArrayList<String> getLista_rutinas() {
+        return lista_rutinas;
+    }
+
+    public void setLista_rutinas(ArrayList<String> lista_rutinas) {
+        this.lista_rutinas = lista_rutinas;
     }
 
     public void setTipo(String tipo) {
