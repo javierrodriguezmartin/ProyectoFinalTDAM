@@ -3,6 +3,7 @@ package com.example.reachthegym.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,8 +104,10 @@ public class ListarClases extends Fragment {
         ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(getContext(),R.array.dias_semana,R.layout.support_simple_spinner_dropdown_item);
         adapterSpinner.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerListarClases.setAdapter(adapterSpinner);
-        spinnerListarClases.setSelection(0);
 
+        adapter = new AdapterListarClases(lista_clases,getContext());
+        recyListarClases.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyListarClases.setAdapter(adapter);
 
         ref.child("centro").child("clases").addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,23 +127,31 @@ public class ListarClases extends Fragment {
             }
         });
 
-        adapter = new AdapterListarClases(lista_clases,getContext());
-        recyListarClases.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyListarClases.setAdapter(adapter);
-
         spinnerListarClases.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String dia = parent.getItemAtPosition(position).toString();
                 buscarSpinner(dia);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                buscarSpinner("lunes");
+                adapter.notifyDataSetChanged();
 
             }
         });
+        spinnerListarClases.setSelection(0,true);
+        buscarSpinner("Lunes");
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                spinnerListarClases.setSelection(0);
+
+            }
+        },100);
 
         return vista;
     }
@@ -188,7 +199,15 @@ public class ListarClases extends Fragment {
         });
 
         adapter.filtrar(filtrolista);
+        adapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        spinnerListarClases.setSelection(0);
     }
 
 }

@@ -4,7 +4,7 @@ import android.net.Uri;
 
 public class Ejercicio {
 
-    private String id_ejercicio,nombre,zona,objetivo,descripcion;
+    private String id_ejercicio,nombre,zona,objetivo,descripcion,id_empleado;
     private Uri img_url;
 
 
@@ -13,6 +13,7 @@ public class Ejercicio {
         this.zona = "";
         this.objetivo = "";
         this.descripcion = "";
+        this.id_empleado = "";
 
     }
 
@@ -22,6 +23,7 @@ public class Ejercicio {
         this.zona = zona;
         this.objetivo = objetivo;
         this.descripcion = descripcion;
+        this.id_empleado = id_empleado;
     }
 
     public String getNombre() {
@@ -70,5 +72,17 @@ public class Ejercicio {
 
     public void setImg_url(Uri img_url) {
         this.img_url = img_url;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getId_empleado() {
+        return id_empleado;
+    }
+
+    public void setId_empleado(String id_empleado) {
+        this.id_empleado = id_empleado;
     }
 }

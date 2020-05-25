@@ -152,8 +152,8 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ListarClases listarClases = ListarClases.newInstance("","");
-                loadFragment(listarClases).commit();
+                CrearRutina crearRutina = CrearRutina.newInstance("","");
+                loadFragment(crearRutina).commit();
 
             }
         });
