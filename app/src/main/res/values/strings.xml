@@ -78,4 +78,7 @@
     <string name="nombre_para_la_rutina">Nombre para la rutina</string>
     <string name="crearRutina">Crear Rutina</string>
     <string name="img_item_rutinas">img_item_rutinas</string>
+    <string name="creadorRutina">Creador:</string>
+    <string name="img_item_rutina">img_item_rutina</string>
+    <string name="busque_la_rutina">Busque la rutina</string>
 </resources>

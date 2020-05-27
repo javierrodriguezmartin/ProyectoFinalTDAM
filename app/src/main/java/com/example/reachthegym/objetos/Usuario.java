@@ -8,7 +8,7 @@ public class Usuario {
 
     private String dni,nombre,apellidos,telefono,direccion,contrasena,tipo,email,id,fecha_alta;
     private Uri img_url;
-    private ArrayList<String> lista_rutinas;
+    private ArrayList<Rutina> lista_rutinas;
 
     public Usuario() {
         this.dni = "";
@@ -122,11 +122,11 @@ public class Usuario {
         return tipo;
     }
 
-    public ArrayList<String> getLista_rutinas() {
+    public ArrayList<Rutina> getLista_rutinas() {
         return lista_rutinas;
     }
 
-    public void setLista_rutinas(ArrayList<String> lista_rutinas) {
+    public void setLista_rutinas(ArrayList<Rutina> lista_rutinas) {
         this.lista_rutinas = lista_rutinas;
     }
 

@@ -4,24 +4,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
-import com.example.reachthegym.adaptadores.ListEjerciciosAdapter;
-import com.example.reachthegym.objetos.Ejercicio;
-import com.example.reachthegym.objetos.EjercicioEmpleado;
+import com.example.reachthegym.adaptadores.RutinasAdapter;
 import com.example.reachthegym.objetos.Rutina;
-import com.google.android.material.button.MaterialButton;
+import com.example.reachthegym.objetos.Usuario;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,34 +35,30 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CrearRutina#newInstance} factory method to
+ * Use the {@link SeleccionarRutinaCliente#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CrearRutina extends Fragment {
+public class SeleccionarRutinaCliente extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.nombre_edit_rutina)
-    TextInputEditText nombreEditRutina;
-    @BindView(R.id.listview_ejercicios)
-    ListView listviewEjercicios;
-    @BindView(R.id.bton_crear_rutina)
-    MaterialButton btonCrearRutina;
-
+    @BindView(R.id.buscador_rutina)
+    TextInputEditText buscadorRutina;
+    @BindView(R.id.texo_buscar_rutina)
+    MaterialTextView texoBuscarRutina;
+    @BindView(R.id.recycler_rutinas)
+    RecyclerView recyclerRutinas;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionList mListener;
-    private ArrayList<EjercicioEmpleado> lista_ejercicios = new ArrayList<>();
-    private ArrayList<EjercicioEmpleado> ejercicios_rutina = new ArrayList<>();
+    private RutinasAdapter adapter;
     private DatabaseReference ref;
-    private ListEjerciciosAdapter adapter;
+    private ArrayList<Rutina> lista_rutina = new ArrayList<>();;
 
-
-
-    public CrearRutina() {
+    public SeleccionarRutinaCliente() {
         // Required empty public constructor
     }
 
@@ -72,11 +68,11 @@ public class CrearRutina extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CrearRutina.
+     * @return A new instance of fragment SeleccionarRutinaCliente.
      */
     // TODO: Rename and change types and number of parameters
-    public static CrearRutina newInstance(String param1, String param2) {
-        CrearRutina fragment = new CrearRutina();
+    public static SeleccionarRutinaCliente newInstance(String param1, String param2) {
+        SeleccionarRutinaCliente fragment = new SeleccionarRutinaCliente();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,20 +92,23 @@ public class CrearRutina extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_crear_rutina, container, false);
-        ButterKnife.bind(this, vista);
-
+        View vista = inflater.inflate(R.layout.fragment_seleccionar_rutina_cliente, container, false);
+        ButterKnife.bind(this,vista);
         SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
-        String id_usuario = prefs.getString("id_usuario","");
+        String id_usuario = prefs.getString("id_usuario",null);
+
 
         ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("centro").child("ejercicios_empleado").orderByChild("id_empleado").equalTo(id_usuario).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        ref.child("centro")
+                .child("rutinas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot hijo: dataSnapshot.getChildren()){
-                    EjercicioEmpleado ejercicioEmpleado = hijo.getValue(EjercicioEmpleado.class);
-                    lista_ejercicios.add(ejercicioEmpleado);
+                lista_rutina.clear();
+                for (DataSnapshot hijo : dataSnapshot.getChildren()){
+                    Rutina pojo_rutina = hijo.getValue(Rutina.class);
+                    lista_rutina.add(pojo_rutina);
                     adapter.notifyDataSetChanged();
                 }
 
@@ -121,35 +120,27 @@ public class CrearRutina extends Fragment {
             }
         });
 
-        adapter = new ListEjerciciosAdapter(getContext(),lista_ejercicios);
-        listviewEjercicios.setAdapter(adapter);
-        listviewEjercicios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter = new RutinasAdapter(getContext(),lista_rutina,id_usuario);
+        recyclerRutinas.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerRutinas.setAdapter(adapter);
+
+
+        buscadorRutina.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ejercicios_rutina.add(lista_ejercicios.get(position));
-                String nombre_ejer = lista_ejercicios.get(position).getNombre();
-                Toast.makeText(getContext(), "Ejercicio "+nombre_ejer+" añadido correctamente", Toast.LENGTH_SHORT).show();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-        });
 
-        btonCrearRutina.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (nombreEditRutina.getText().toString().trim().isEmpty() && ejercicios_rutina.isEmpty()){
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    Toast.makeText(getContext(), "Debes añadir un nombre para la rutina y seleccionar los ejercicios para añadir", Toast.LENGTH_SHORT).show();
+            }
 
-                }else{
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                    String clave = ref.child("centro").child("rutinas").push().getKey();
-                    String nombre_rut = nombreEditRutina.getText().toString();
-                    Rutina rutina = new Rutina(clave,nombre_rut,ejercicios_rutina,id_usuario);
+                filtrar(s.toString());
 
-                    ref.child("centro").child("rutinas").child(clave).setValue(rutina);
-
-                    Toast.makeText(getContext(), "Rutina añadida con éxito", Toast.LENGTH_SHORT).show();
-                    cerrarFragment();
-                }
             }
         });
 
@@ -181,8 +172,19 @@ public class CrearRutina extends Fragment {
         mListener = null;
     }
 
-    private void cerrarFragment(){
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+
+    public void filtrar(String texto){
+        ArrayList<Rutina> filtrarLista = new ArrayList<>();
+
+        for (Rutina rutina: lista_rutina){
+
+            if (rutina.getNombre().toLowerCase().contains(texto.toLowerCase())){
+                filtrarLista.add(rutina);
+            }
+
+            adapter.filtrar(filtrarLista);
+        }
+
     }
 
 }
