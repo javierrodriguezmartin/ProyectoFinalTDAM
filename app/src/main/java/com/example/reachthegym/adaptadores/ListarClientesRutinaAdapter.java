@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
+import com.example.reachthegym.fragments.SeleccionarRutinaCliente;
 import com.example.reachthegym.objetos.Usuario;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textview.MaterialTextView;
@@ -41,7 +44,7 @@ public class ListarClientesRutinaAdapter extends RecyclerView.Adapter<ListarClie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_usuario_rutina, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.item_usuario_rutina, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         ButterKnife.bind(v);
 
@@ -67,9 +70,15 @@ public class ListarClientesRutinaAdapter extends RecyclerView.Adapter<ListarClie
             }
         });
 
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SeleccionarRutinaCliente seleccionarRutinaCliente = SeleccionarRutinaCliente.newInstance(pojo_usuario.getId(),"");
+                AppCompatActivity activity = (AppCompatActivity)holder.itemView.getContext();
+                activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,seleccionarRutinaCliente).addToBackStack(null).commit();
+
 
             }
         });

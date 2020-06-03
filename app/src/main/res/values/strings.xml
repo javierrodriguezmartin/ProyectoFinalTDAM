@@ -81,4 +81,19 @@
     <string name="creadorRutina">Creador:</string>
     <string name="img_item_rutina">img_item_rutina</string>
     <string name="busque_la_rutina">Busque la rutina</string>
+    <string name="descripci_n_de_la_competici_n">Descripción de la competición</string>
+    <string name="nombre_del_segundo_ejercicio">Nombre del segundo ejercicio</string>
+    <string name="nombre_del_primer_ejercicio">Nombre del primer ejercicio</string>
+    <string name="img_item_competi">img_item_competi</string>
+    <string name="nombre_competicion">Nombre competicion</string>
+    <string name="nombreCOmpeti">Nombre Competicion</string>
+    <string name="no_hay_competiciones_a_n">No hay competiciones aún</string>
+    <string name="imagen_ver_competicion">imagen ver competicion</string>
+    <string name="ejercicio_1">Ejercicio 1:</string>
+    <string name="ejercicio_2">Ejercicio 2:</string>
+    <string name="descripcion">Descripcion:</string>
+    <string name="apuntarse">Apuntarse</string>
+    <string name="a_adir_participacion">Añadir participacion</string>
+    <string name="puntos_ejercicio_2">Puntos ejercicio 2</string>
+    <string name="puntos_ejercicio_1">Puntos ejercicio 1</string>
 </resources>

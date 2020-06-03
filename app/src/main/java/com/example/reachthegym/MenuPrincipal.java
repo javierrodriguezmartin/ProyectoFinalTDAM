@@ -25,6 +25,9 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
 
 
         menuBottom = (BottomNavigationView)findViewById(R.id.menuBottom);
+        FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+        loadFragment(fragmentDashboard).commit();
+
 
         menuBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

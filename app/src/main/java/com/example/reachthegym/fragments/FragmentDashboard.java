@@ -118,6 +118,8 @@ public class FragmentDashboard extends Fragment {
         anadirRutinaDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnadirRutinaCliente anadirRutinaCliente  = AnadirRutinaCliente.newInstance("","");
+                loadFragment(anadirRutinaCliente).commit();
 
 
             }

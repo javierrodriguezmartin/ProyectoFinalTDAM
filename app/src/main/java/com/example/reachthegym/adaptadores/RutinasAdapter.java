@@ -8,11 +8,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.R;
+import com.example.reachthegym.fragments.FragmentDashboard;
 import com.example.reachthegym.objetos.Rutina;
 import com.example.reachthegym.objetos.Usuario;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.FormatFlagsConversionMismatchException;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +41,7 @@ public class RutinasAdapter extends RecyclerView.Adapter<RutinasAdapter.ViewHold
     private ArrayList<Rutina> lista_rutinas = new ArrayList<>();
     private DatabaseReference ref;
     private String id_cliente;
+
 
     public RutinasAdapter(Context mContext, ArrayList<Rutina> lista_rutinas, String id_cliente) {
         this.mContext = mContext;
@@ -90,12 +99,42 @@ public class RutinasAdapter extends RecyclerView.Adapter<RutinasAdapter.ViewHold
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChildren()){
 
+
+
                             Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
-                            ArrayList<Rutina> lista_rutinas = new ArrayList<>();
-                            lista_rutinas.add(pojo_rutina);
-                            pojo_usuario.setLista_rutinas(lista_rutinas);
-                            ref.child("centro").child("usuarios").child(id_cliente).setValue(pojo_usuario);
-                            Toast.makeText(mContext, "Rutina añadida al cliente "+pojo_usuario.getNombre(), Toast.LENGTH_SHORT).show();
+
+                            if (pojo_usuario.getLista_rutinas()==null){
+
+                                ArrayList<Rutina> lista_rutinas = new ArrayList<>();
+                                lista_rutinas.add(pojo_rutina);
+                                pojo_usuario.setLista_rutinas(lista_rutinas);
+                                ref.child("centro").child("usuarios").child(id_cliente).setValue(pojo_usuario);
+                                Toast.makeText(mContext, "Rutina añadida al cliente "+pojo_usuario.getNombre(), Toast.LENGTH_SHORT).show();
+
+                                fragDashboard();
+
+                            }else{
+
+                                ArrayList<Rutina> lista_rutinas = new ArrayList<>();
+                                lista_rutinas = pojo_usuario.getLista_rutinas();
+
+                                if (estaEnLista(lista_rutinas,pojo_rutina.getId_rutina())){
+
+                                    Toast.makeText(mContext, "Esta rutina ya está añadida a este cliente", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    pojo_usuario.setLista_rutinas(lista_rutinas);
+                                    ref.child("centro").child("usuarios").child(id_cliente).setValue(pojo_usuario);
+                                    Toast.makeText(mContext, "Rutina añadida al cliente "+pojo_usuario.getNombre(), Toast.LENGTH_SHORT).show();
+
+                                    fragDashboard();
+                                }
+
+
+
+                            }
+
+
 
 
 
@@ -144,5 +183,26 @@ public class RutinasAdapter extends RecyclerView.Adapter<RutinasAdapter.ViewHold
     public void filtrar(ArrayList<Rutina> filtroRutinas) {
         this.lista_rutinas = filtroRutinas;
         notifyDataSetChanged();
+    }
+
+    public void fragDashboard(){
+
+        FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+        AppCompatActivity activity = (AppCompatActivity)mContext;
+        activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,fragmentDashboard).addToBackStack(null).commit();
+
+    }
+
+    public boolean estaEnLista(ArrayList<Rutina> lista_rutinas,String id_rutina){
+        boolean res = false;
+
+        for (Rutina item :lista_rutinas){
+            if (item.getId_rutina().equalsIgnoreCase(id_rutina)){
+                res = true;
+            }
+        }
+
+
+        return res;
     }
 }

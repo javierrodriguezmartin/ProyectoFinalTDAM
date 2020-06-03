@@ -120,7 +120,7 @@ public class SeleccionarRutinaCliente extends Fragment {
             }
         });
 
-        adapter = new RutinasAdapter(getContext(),lista_rutina,id_usuario);
+        adapter = new RutinasAdapter(getContext(),lista_rutina,mParam1);
         recyclerRutinas.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerRutinas.setAdapter(adapter);
 
