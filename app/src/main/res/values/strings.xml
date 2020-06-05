@@ -96,4 +96,8 @@
     <string name="a_adir_participacion">Añadir participacion</string>
     <string name="puntos_ejercicio_2">Puntos ejercicio 2</string>
     <string name="puntos_ejercicio_1">Puntos ejercicio 1</string>
+    <string name="ver_ranking">Ver Ranking</string>
+    <string name="participantes">Participantes:</string>
+    <string name="imagen_ranking">imagen ranking</string>
+    <string name="puntos">Puntos:</string>
 </resources>

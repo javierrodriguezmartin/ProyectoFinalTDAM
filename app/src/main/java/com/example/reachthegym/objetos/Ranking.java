@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class Ranking {
 
-    String id_competicion,puntos_ejercicio1,puntos_ejercicio2;
-    int clientes_apuntados;
-     ArrayList<String> lista_usuarios;
+    String id_competicion,id_ranking;
+    int clientes_apuntados,total_puntos;
+     ArrayList<AuxiliarRanking> lista_usuarios;
 
-    public Ranking(String id_competicion,ArrayList<String> lista_usuarios) {
+    public Ranking(String id_competicion,ArrayList<AuxiliarRanking> lista_usuarios) {
         this.id_competicion = id_competicion;
-        this.puntos_ejercicio1 = puntos_ejercicio1;
-        this.puntos_ejercicio2 = puntos_ejercicio2;
+        this.total_puntos = 0;
         this.lista_usuarios = lista_usuarios;
         this.clientes_apuntados = 0;
     }
@@ -24,20 +23,21 @@ public class Ranking {
         this.id_competicion = id_competicion;
     }
 
-    public String getPuntos_ejercicio1() {
-        return puntos_ejercicio1;
+
+    public String getId_ranking() {
+        return id_ranking;
     }
 
-    public void setPuntos_ejercicio1(String puntos_ejercicio1) {
-        this.puntos_ejercicio1 = puntos_ejercicio1;
+    public void setId_ranking(String id_ranking) {
+        this.id_ranking = id_ranking;
     }
 
-    public String getPuntos_ejercicio2() {
-        return puntos_ejercicio2;
+    public int getTotal_puntos() {
+        return total_puntos;
     }
 
-    public void setPuntos_ejercicio2(String puntos_ejercicio2) {
-        this.puntos_ejercicio2 = puntos_ejercicio2;
+    public void setTotal_puntos(int total_puntos) {
+        this.total_puntos = total_puntos;
     }
 
     public int getClientes_apuntados() {
@@ -48,11 +48,11 @@ public class Ranking {
         this.clientes_apuntados = clientes_apuntados;
     }
 
-    public ArrayList<String> getLista_usuarios() {
+    public ArrayList<AuxiliarRanking> getLista_usuarios() {
         return lista_usuarios;
     }
 
-    public void setLista_usuarios(ArrayList<String> lista_usuarios) {
+    public void setLista_usuarios(ArrayList<AuxiliarRanking> lista_usuarios) {
         this.lista_usuarios = lista_usuarios;
     }
 }

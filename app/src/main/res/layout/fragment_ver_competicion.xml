@@ -48,13 +48,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ejercicio_2"
                     android:textStyle="bold"/>
-
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/participantes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participantes"
+                    android:textStyle="bold"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/desc_competicion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/descripcion"
                     android:textStyle="bold"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -76,6 +82,11 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/nombre_eje2_competicion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/participantes_competicion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="" />
@@ -103,6 +114,15 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:paddingTop="20dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bton_ranking_competicion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:text="@string/ver_ranking" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bton_apuntarse_competicion"

@@ -8,20 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.example.reachthegym.adaptadores.AdapterImgHorizontal;
-import com.example.reachthegym.adaptadores.AdapterListarEjercicios;
 import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.EjercicioEmpleado;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -69,7 +66,6 @@ public class VerEjercicio extends Fragment {
     TextView descripcionVerEjercicio;
     @BindView(R.id.button)
     Button borrar;
-
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -127,9 +123,9 @@ public class VerEjercicio extends Fragment {
 
         ArrayList<Uri> array_imagenes = new ArrayList<>();
 
-        for(int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
 
-            sto.child("centro").child("imagenes").child("ejercicios_empleado").child(""+mParam1+"").child("foto"+i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            sto.child("centro").child("imagenes").child("ejercicios_empleado").child("" + mParam1 + "").child("foto" + i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
 
@@ -140,12 +136,12 @@ public class VerEjercicio extends Fragment {
             });
         }
 
-        for(int i=0; i<array_imagenes.size();i++){
+        for (int i = 0; i < array_imagenes.size(); i++) {
             url.add(array_imagenes.get(i).toString());
         }
 
-        adapter = new AdapterImgHorizontal(array_imagenes,getContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        adapter = new AdapterImgHorizontal(array_imagenes, getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyImagenesEjercicio.setLayoutManager(layoutManager);
         recyImagenesEjercicio.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -199,14 +195,14 @@ public class VerEjercicio extends Fragment {
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tipo_usuario.equalsIgnoreCase("empleado")){
+                if (tipo_usuario.equalsIgnoreCase("empleado")) {
 
-                    ref.child("centro").child("ejercicios_empleado").child(""+mParam1+"").removeValue();
+                    ref.child("centro").child("ejercicios_empleado").child("" + mParam1 + "").removeValue();
                     Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
 
-                    ref.child("centro").child("ejercicios").child(""+mParam1+"").removeValue();
+                    ref.child("centro").child("ejercicios").child("" + mParam1 + "").removeValue();
                     Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
 
                 }
