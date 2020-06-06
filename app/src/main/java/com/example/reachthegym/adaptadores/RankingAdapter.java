@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
 import com.example.reachthegym.objetos.AuxiliarRanking;
-import com.example.reachthegym.objetos.Ranking;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,9 +27,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
 
 
+
     private ArrayList<AuxiliarRanking> lista_ranking = new ArrayList<>();
     private Context mContext;
     private StorageReference sto;
+
+    public RankingAdapter(ArrayList<AuxiliarRanking> lista_ranking,Context mContext){
+        this.lista_ranking=lista_ranking;
+        this.mContext=mContext;
+    }
 
 
     @NonNull
@@ -60,6 +66,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             }
         });
 
+        holder.posicionRank.setText(position+1);
+
 
     }
 
@@ -76,6 +84,9 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         MaterialTextView puntos;
         @BindView(R.id.total_puntos)
         MaterialTextView totalPuntos;
+        @BindView(R.id.posicion_rank)
+        TextView posicionRank;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

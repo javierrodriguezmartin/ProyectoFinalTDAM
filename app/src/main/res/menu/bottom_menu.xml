@@ -3,23 +3,15 @@
 
     <item android:id="@+id/action_camera"
         android:title=""
-        android:icon="@android:drawable/ic_menu_camera" />
+        android:icon="@drawable/anadircompeticion" />
 
     <item android:id="@+id/action_navi"
         android:title=""
-        android:icon="@android:drawable/ic_menu_agenda" />
+        android:icon="@drawable/menu_abierto" />
 
     <item android:id="@+id/action_add"
         android:title=""
-        android:icon="@android:drawable/ic_menu_add" />
-
-    <item android:id="@+id/action_settings"
-        android:title=""
-        android:icon="@android:drawable/ic_menu_preferences" />
-
-    <item android:id="@+id/action_search"
-        android:title=""
-        android:icon="@android:drawable/ic_menu_search"/>
+        android:icon="@drawable/mensaje" />
 
 
 </menu>

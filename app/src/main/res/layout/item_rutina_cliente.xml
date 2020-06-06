@@ -9,13 +9,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_item_ranking"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_gravity="left"
-            android:contentDescription="@string/imagen_ranking"
-            app:srcCompat="@drawable/cargando" />
+        <ImageView
+            android:id="@+id/img_item_rutina_cliente"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/kettlebell" />
     </LinearLayout>
 
     <LinearLayout
@@ -24,13 +22,13 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/puntos"
+        <TextView
+            android:id="@+id/nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/puntos"
-            android:textStyle="bold" />
+            android:text="@string/nombreEjer"
+            android:textStyle="bold"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -39,11 +37,10 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/total_puntos"
+        <TextView
+            android:id="@+id/nombre_rutina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="" />
     </LinearLayout>
 
@@ -53,13 +50,12 @@
         android:layout_gravity="center|right"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/posicion_rank"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/img_hecha"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="center|right"
-            android:text=""
-            android:textStyle="bold"/>
+            app:srcCompat="@drawable/correct_rojo"
+            android:contentDescription="@string/imagen_hecha"/>
     </LinearLayout>
-
 </LinearLayout>

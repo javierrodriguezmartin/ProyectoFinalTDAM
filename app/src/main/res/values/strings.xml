@@ -100,4 +100,21 @@
     <string name="participantes">Participantes:</string>
     <string name="imagen_ranking">imagen ranking</string>
     <string name="puntos">Puntos:</string>
+    <string name="imagen_ver_ranking">imagen ver ranking</string>
+    <string name="mis_rutinas">Mis Rutinas</string>
+    <string name="mi_perfil">Mi perfil</string>
+    <string name="listar_clasesCliente">Listar Clases</string>
+    <string name="anunciocompa_ero">AnuncioCompañero</string>
+    <string name="listar_clases">Listar Clases</string>
+    <string name="telefono">Telefono:</string>
+    <string name="fecha_alta">Fecha Alta:</string>
+    <string name="Clienn">Email:</string>
+    <string name="direccion">Direccion:</string>
+    <string name="dniII">DNI:</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="imagen_modificar_perfil">imagen modificar perfil</string>
+    <string name="imagen_hecha">imagen hecha</string>
+    <string name="terminar">Terminar</string>
+    <string name="SS">Ejercicios:</string>
+    <string name="mis_rutinas">Mis Rutinas</string>
 </resources>

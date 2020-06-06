@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -47,6 +48,10 @@ public class FragmentDashboard extends Fragment {
     CardView anadirClaseDashboard;
     @BindView(R.id.crear_rutina_dashboard)
     CardView crearRutinaDashboard;
+    @BindView(R.id.listar_clases_dashboard)
+    MaterialCardView listarClasesDashboard;
+    @BindView(R.id.listar_anuncios_dashboard)
+    MaterialCardView listarAnunciosDashboard;
 
     private StorageReference sto;
 
@@ -97,8 +102,7 @@ public class FragmentDashboard extends Fragment {
         SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
 
 
-
-        sto.child("centro").child("imagenes").child(prefs.getString("id_usuario","")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        sto.child("centro").child("imagenes").child(prefs.getString("id_usuario", "")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(getActivity()).load(uri).into(imgDashUsuario);
@@ -118,7 +122,7 @@ public class FragmentDashboard extends Fragment {
         anadirRutinaDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnadirRutinaCliente anadirRutinaCliente  = AnadirRutinaCliente.newInstance("","");
+                AnadirRutinaCliente anadirRutinaCliente = AnadirRutinaCliente.newInstance("", "");
                 loadFragment(anadirRutinaCliente).commit();
 
 
@@ -144,7 +148,7 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
-                AnadirClase anadirClase = AnadirClase.newInstance("","");
+                AnadirClase anadirClase = AnadirClase.newInstance("", "");
                 loadFragment(anadirClase).commit();
 
             }
@@ -154,8 +158,23 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
-                CrearRutina crearRutina = CrearRutina.newInstance("","");
+                CrearRutina crearRutina = CrearRutina.newInstance("", "");
                 loadFragment(crearRutina).commit();
+
+            }
+        });
+
+        listarClasesDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListarClases listarClases = ListarClases.newInstance("", "");
+                loadFragment(listarClases).commit();
+            }
+        });
+
+        listarAnunciosDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

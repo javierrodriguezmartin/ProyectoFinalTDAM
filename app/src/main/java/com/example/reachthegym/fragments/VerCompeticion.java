@@ -81,8 +81,6 @@ public class VerCompeticion extends Fragment {
     TextInputEditText puntosEjer2;
     @BindView((R.id.bton_añadir_participacion))
     MaterialButton btonAnadirParticipacion;
-    @BindView((R.id.modificar_competicion))
-    MaterialButton modificarCompeticion;
     @BindView((R.id.bton_ranking_competicion))
     MaterialButton btonRankingCompeticion;
     @BindView((R.id.participantes_competicion))
@@ -162,9 +160,6 @@ public class VerCompeticion extends Fragment {
                 borrarCompeticion.setClickable(false);
                 borrarCompeticion.setEnabled(false);
                 borrarCompeticion.setVisibility(View.GONE);
-                modificarCompeticion.setVisibility(View.GONE);
-                modificarCompeticion.setEnabled(false);
-                modificarCompeticion.setClickable(false);
             }
 
 
@@ -291,7 +286,7 @@ public class VerCompeticion extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.hasChildren()){
 
-                                    VerRanking verRanking = VerRanking.newInstance(ide_competi[0],"");
+                                    VerRanking verRanking = VerRanking.newInstance(ide_competi[0],pojo_competi[0].getNombre());
                                     getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,verRanking).addToBackStack(null).commit();
 
                                 }else{
@@ -325,17 +320,7 @@ public class VerCompeticion extends Fragment {
                 }
             });
 
-            modificarCompeticion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    ModificarCompeticion modificarCompeticion = ModificarCompeticion.newInstance(ide_competi[0],"");
-                    getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,modificarCompeticion).addToBackStack(null).commit();
-
-
-
-                }
-            });
 
 
 

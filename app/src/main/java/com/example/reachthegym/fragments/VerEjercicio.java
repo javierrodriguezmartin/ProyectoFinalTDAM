@@ -21,6 +21,8 @@ import com.example.reachthegym.R;
 import com.example.reachthegym.adaptadores.AdapterImgHorizontal;
 import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.EjercicioEmpleado;
+import com.example.reachthegym.objetos.Rutina;
+import com.example.reachthegym.objetos.Usuario;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -120,94 +122,146 @@ public class VerEjercicio extends Fragment {
 
         SharedPreferences pref = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
         String tipo_usuario = pref.getString("tipo_usuario", "no hay nada");
+        String id_usuario = pref.getString("id_usuario","");
 
-        ArrayList<Uri> array_imagenes = new ArrayList<>();
+        if (isAdded()){
 
-        for (int i = 0; i < 4; i++) {
+            if (tipo_usuario.equalsIgnoreCase("cliente")){
+                borrar.setVisibility(View.GONE);
+                borrar.setClickable(false);
+                borrar.setEnabled(false);
+            }
+            ArrayList<Uri> array_imagenes = new ArrayList<>();
 
-            sto.child("centro").child("imagenes").child("ejercicios_empleado").child("" + mParam1 + "").child("foto" + i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            for (int i = 0; i < 4; i++) {
+
+                sto.child("centro").child("imagenes").child("ejercicios_empleado").child("" + mParam1 + "").child("foto" + i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        array_imagenes.add(uri);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+            }
+
+            for (int i = 0; i < array_imagenes.size(); i++) {
+                url.add(array_imagenes.get(i).toString());
+            }
+
+            adapter = new AdapterImgHorizontal(array_imagenes, getContext());
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            recyImagenesEjercicio.setLayoutManager(layoutManager);
+            recyImagenesEjercicio.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+
+            if (tipo_usuario.equalsIgnoreCase("empleado")) {
+
+                ref.child("centro")
+                        .child("ejercicios_empleado")
+                        .child(mParam1)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                EjercicioEmpleado pojo_ejercicio = dataSnapshot.getValue(EjercicioEmpleado.class);
+                                nombreVerEjercicio.setText(pojo_ejercicio.getNombre());
+                                zonaVerEjercicio.setText(pojo_ejercicio.getZona());
+                                objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
+                                descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+            } else if(tipo_usuario.equalsIgnoreCase("cliente")) {
+
+
+                ref.child("centro").child("usuarios").child(id_usuario).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.hasChildren()){
+
+                            Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
+                            ArrayList<Rutina> list = pojo_usuario.getLista_rutinas();
+
+                            for (Rutina item :list){
+                                if (item.getId_rutina().equals(mParam2)){
+
+                                    ArrayList<EjercicioEmpleado> lista = item.getLista_ejercicios();
+
+                                    for (EjercicioEmpleado item2 :lista){
+                                        if (item2.getId_ejercicio().equals(mParam1)){
+                                            nombreVerEjercicio.setText(item2.getNombre());
+                                            zonaVerEjercicio.setText(item2.getZona());
+                                            objetivoVerEjercicio.setText(item2.getObjetivo());
+                                            descripcionVerEjercicio.setText(item2.getDescripcion());
+
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }else{
+                ref.child("centro")
+                        .child("ejercicios")
+                        .child(mParam1)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Ejercicio pojo_ejercicio = dataSnapshot.getValue(Ejercicio.class);
+                                nombreVerEjercicio.setText(pojo_ejercicio.getNombre());
+                                zonaVerEjercicio.setText(pojo_ejercicio.getZona());
+                                objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
+                                descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+
+            borrar.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSuccess(Uri uri) {
+                public void onClick(View v) {
+                    if (tipo_usuario.equalsIgnoreCase("empleado")) {
 
-                    array_imagenes.add(uri);
-                    adapter.notifyDataSetChanged();
+                        ref.child("centro").child("ejercicios_empleado").child("" + mParam1 + "").removeValue();
+                        Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
 
+                    } else {
+
+                        ref.child("centro").child("ejercicios").child("" + mParam1 + "").removeValue();
+                        Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             });
         }
 
-        for (int i = 0; i < array_imagenes.size(); i++) {
-            url.add(array_imagenes.get(i).toString());
-        }
 
-        adapter = new AdapterImgHorizontal(array_imagenes, getContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyImagenesEjercicio.setLayoutManager(layoutManager);
-        recyImagenesEjercicio.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-
-        if (tipo_usuario.equalsIgnoreCase("empleado")) {
-
-            ref.child("centro")
-                    .child("ejercicios_empleado")
-                    .child(mParam1)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            EjercicioEmpleado pojo_ejercicio = dataSnapshot.getValue(EjercicioEmpleado.class);
-                            nombreVerEjercicio.setText(pojo_ejercicio.getNombre());
-                            zonaVerEjercicio.setText(pojo_ejercicio.getZona());
-                            objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
-                            descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-        } else {
-
-            ref.child("centro")
-                    .child("ejercicios")
-                    .child(mParam1)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Ejercicio pojo_ejercicio = dataSnapshot.getValue(Ejercicio.class);
-                            nombreVerEjercicio.setText(pojo_ejercicio.getNombre());
-                            zonaVerEjercicio.setText(pojo_ejercicio.getZona());
-                            objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
-                            descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-        }
-
-        borrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tipo_usuario.equalsIgnoreCase("empleado")) {
-
-                    ref.child("centro").child("ejercicios_empleado").child("" + mParam1 + "").removeValue();
-                    Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    ref.child("centro").child("ejercicios").child("" + mParam1 + "").removeValue();
-                    Toast.makeText(getContext(), "Ejercicio borrado correctamente", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
 
 
         return vista;

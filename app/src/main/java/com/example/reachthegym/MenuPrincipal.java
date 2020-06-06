@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.reachthegym.fragments.AnadirEjercicioAdmin;
 import com.example.reachthegym.fragments.FragmentDashboard;
+import com.example.reachthegym.fragments.FragmentDashboardCliente;
+import com.example.reachthegym.fragments.ListarCompeticiones;
 import com.example.reachthegym.fragments.ListarEjercicios;
 import com.example.reachthegym.fragments.ListarUsuariosAdmin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,11 +26,27 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
-
-
         menuBottom = (BottomNavigationView)findViewById(R.id.menuBottom);
-        FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
-        loadFragment(fragmentDashboard).commit();
+        SharedPreferences prefs = getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+        String tipo_usuario = prefs.getString("tipo_usuario",null);
+
+        if (tipo_usuario.equalsIgnoreCase("empleado")){
+
+            FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+            loadFragment(fragmentDashboard).commit();
+
+        }else if(tipo_usuario.equalsIgnoreCase("admin")){
+            FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+            loadFragment(fragmentDashboard).commit();
+        }else{
+            FragmentDashboardCliente fragmentDashboardCliente = FragmentDashboardCliente.newInstance("","");
+            loadFragment(fragmentDashboardCliente).commit();
+        }
+
+
+
+
+
 
 
         menuBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,30 +55,26 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
                 switch (menuItem.getItemId()) {
                     case R.id.action_add:
 
-                        ListarUsuariosAdmin listarUsuariosAdmin = ListarUsuariosAdmin.newInstance("","");
-                        loadFragment(listarUsuariosAdmin).commit();
-                        break;
 
                     case R.id.action_camera:
 
-                        AnadirEjercicioAdmin anadirEjercicioAdmin = AnadirEjercicioAdmin.newInstance("","");
-                        loadFragment(anadirEjercicioAdmin).commit();
+                        ListarCompeticiones listarCompeticiones = ListarCompeticiones.newInstance("","");
+                        loadFragment(listarCompeticiones).commit();
                         break;
 
-                    case R.id.action_search:
-
-                        ListarEjercicios listarEjercicios = ListarEjercicios.newInstance("","");
-                        loadFragment(listarEjercicios).commit();
-                        break;
-
-
-                    case R.id.action_settings:
-                        FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
-                        loadFragment(fragmentDashboard).commit();
-                        break;
                     case R.id.action_navi:
+                        if (tipo_usuario.equalsIgnoreCase("empleado")){
 
+                            FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+                            loadFragment(fragmentDashboard).commit();
 
+                        }else if(tipo_usuario.equalsIgnoreCase("admin")){
+                            FragmentDashboard fragmentDashboard = FragmentDashboard.newInstance("","");
+                            loadFragment(fragmentDashboard).commit();
+                        }else{
+                            FragmentDashboardCliente fragmentDashboardCliente = FragmentDashboardCliente.newInstance("","");
+                            loadFragment(fragmentDashboardCliente).commit();
+                        }
                         break;
                 }
 
