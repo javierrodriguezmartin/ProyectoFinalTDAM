@@ -90,13 +90,35 @@
                 android:hint="@string/objetivoEjercicio"/>
 
             <EditText
-                android:id="@+id/descripcion_ejercicio"
+                android:id="@+id/series_ejercicio"
                 android:layout_width="match_parent"
-                android:layout_height="135dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:padding="20dp"
+                android:inputType="textPersonName"
+                android:hint="@string/series" />
+
+            <EditText
+                android:id="@+id/repeticiones_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:padding="20dp"
-                android:hint="@string/descripcionEjercicio"/>
+                android:hint="@string/repeticiones" />
+
+            <EditText
+                android:id="@+id/descripcion_ejercicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:background="@null"
+                android:gravity="top|start"
+                android:hint="@string/descripcionEjercicio"
+                android:lines="10"
+                android:padding="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                />
 
             <Button
                 android:id="@+id/anadir_ejercicio"

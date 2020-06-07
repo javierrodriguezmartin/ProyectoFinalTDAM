@@ -68,6 +68,14 @@ public class VerEjercicio extends Fragment {
     TextView descripcionVerEjercicio;
     @BindView(R.id.button)
     Button borrar;
+    @BindView(R.id.textView17)
+    TextView textView17;
+    @BindView(R.id.textView18)
+    TextView textView18;
+    @BindView(R.id.series_ver_ejercicio)
+    TextView seriesVerEjercicio;
+    @BindView(R.id.repeticiones_ver_ejercicio)
+    TextView repeticionesVerEjercicio;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -122,11 +130,11 @@ public class VerEjercicio extends Fragment {
 
         SharedPreferences pref = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
         String tipo_usuario = pref.getString("tipo_usuario", "no hay nada");
-        String id_usuario = pref.getString("id_usuario","");
+        String id_usuario = pref.getString("id_usuario", "");
 
-        if (isAdded()){
+        if (isAdded()) {
 
-            if (tipo_usuario.equalsIgnoreCase("cliente")){
+            if (tipo_usuario.equalsIgnoreCase("cliente")) {
                 borrar.setVisibility(View.GONE);
                 borrar.setClickable(false);
                 borrar.setEnabled(false);
@@ -170,6 +178,8 @@ public class VerEjercicio extends Fragment {
                                 zonaVerEjercicio.setText(pojo_ejercicio.getZona());
                                 objetivoVerEjercicio.setText(pojo_ejercicio.getObjetivo());
                                 descripcionVerEjercicio.setText(pojo_ejercicio.getDescripcion());
+                                seriesVerEjercicio.setText(pojo_ejercicio.getSeries());
+                                repeticionesVerEjercicio.setText(pojo_ejercicio.getRepeticiones());
                             }
 
                             @Override
@@ -178,29 +188,31 @@ public class VerEjercicio extends Fragment {
                             }
                         });
 
-            } else if(tipo_usuario.equalsIgnoreCase("cliente")) {
+            } else if (tipo_usuario.equalsIgnoreCase("cliente")) {
 
 
                 ref.child("centro").child("usuarios").child(id_usuario).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if (dataSnapshot.hasChildren()){
+                        if (dataSnapshot.hasChildren()) {
 
                             Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
                             ArrayList<Rutina> list = pojo_usuario.getLista_rutinas();
 
-                            for (Rutina item :list){
-                                if (item.getId_rutina().equals(mParam2)){
+                            for (Rutina item : list) {
+                                if (item.getId_rutina().equals(mParam2)) {
 
                                     ArrayList<EjercicioEmpleado> lista = item.getLista_ejercicios();
 
-                                    for (EjercicioEmpleado item2 :lista){
-                                        if (item2.getId_ejercicio().equals(mParam1)){
+                                    for (EjercicioEmpleado item2 : lista) {
+                                        if (item2.getId_ejercicio().equals(mParam1)) {
                                             nombreVerEjercicio.setText(item2.getNombre());
                                             zonaVerEjercicio.setText(item2.getZona());
                                             objetivoVerEjercicio.setText(item2.getObjetivo());
                                             descripcionVerEjercicio.setText(item2.getDescripcion());
+                                            seriesVerEjercicio.setText(item2.getSeries());
+                                            repeticionesVerEjercicio.setText(item2.getRepeticiones());
 
 
                                         }
@@ -221,7 +233,7 @@ public class VerEjercicio extends Fragment {
                 });
 
 
-            }else{
+            } else {
                 ref.child("centro")
                         .child("ejercicios")
                         .child(mParam1)
@@ -260,8 +272,6 @@ public class VerEjercicio extends Fragment {
                 }
             });
         }
-
-
 
 
         return vista;

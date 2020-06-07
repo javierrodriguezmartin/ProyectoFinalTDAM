@@ -53,8 +53,6 @@ public class MenuPrincipal extends AppCompatActivity implements OnFragmentIntera
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.action_add:
-
 
                     case R.id.action_camera:
 

@@ -58,6 +58,20 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seriesVer"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repeticionesVer"
+                    android:textStyle="bold"/>
+
+                <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,6 +98,18 @@
 
                 <TextView
                     android:id="@+id/zona_ver_ejercicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/series_ver_ejercicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/repeticiones_ver_ejercicio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="" />

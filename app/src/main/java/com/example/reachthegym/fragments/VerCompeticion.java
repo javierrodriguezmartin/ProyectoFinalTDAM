@@ -226,8 +226,12 @@ public class VerCompeticion extends Fragment {
                                 lista.add(pojo_auxiliar);
                                 Ranking pojo_ranking = new Ranking(pojo_competi[0].getId_competicion(),lista);
                                 ref.child("centro").child("ranking").child(pojo_competi[0].getId_competicion()).setValue(pojo_ranking);
+
+                                anadirAlista(pojo_competi[0].getId_competicion(),ide_usuario);
+
                                 Toast.makeText(getContext(), "Te has apuntado correctamente", Toast.LENGTH_SHORT).show();
                                 apuntado[0] = true;
+
 
                             }else if (apuntado[0]==true){
 
@@ -247,6 +251,7 @@ public class VerCompeticion extends Fragment {
                                                 ArrayList<AuxiliarRanking> lista  = pojo_ranking.getLista_usuarios();
                                                 lista.add(aux);
                                                 pojo_ranking.setLista_usuarios(lista);
+                                                anadirAlista(pojo_competi[0].getId_competicion(),ide_usuario);
 
                                                 ref.child("centro").child("ranking").child(pojo_competi[0].getId_competicion()).setValue(pojo_ranking);
                                                 Toast.makeText(getActivity(), "Te has apuntado correctamente", Toast.LENGTH_SHORT).show();
@@ -357,7 +362,7 @@ public class VerCompeticion extends Fragment {
                                             if (item.getId_usuario().equals(ide_usuario)){
                                                 int total = item.getTotal_puntos();
 
-                                                total = puntos1+puntos1+total;
+                                                total = puntos1+puntos2+total;
                                                 item.setTotal_puntos(total);
 
 
@@ -441,5 +446,52 @@ public class VerCompeticion extends Fragment {
         return res;
     }
 
+    public void anadirAlista(String id_competi,String id_participante){
+
+        ref = FirebaseDatabase.getInstance().getReference();
+
+        ref.child("centro").child("competiciones").child(id_competi).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.hasChildren()){
+
+                    Competicion pojo_competi = dataSnapshot.getValue(Competicion.class);
+
+                    if (pojo_competi.getLista_participantes()==null){
+
+                        ArrayList<String> lista = new ArrayList<>();
+                        lista.add(id_participante);
+                        pojo_competi.setLista_participantes(lista);
+                        ref.child("centro").child("competiciones").child(id_competi).setValue(pojo_competi);
+
+                    }else{
+
+                        ArrayList<String> lista = pojo_competi.getLista_participantes();
+
+                       if (!estaEnLista(lista,id_participante)){
+
+                            lista.add(id_participante);
+
+                        }
+                        pojo_competi.setLista_participantes(lista);
+                        ref.child("centro").child("competiciones").child(id_competi).setValue(pojo_competi);
+
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
 
 }

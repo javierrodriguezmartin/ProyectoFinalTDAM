@@ -20,9 +20,11 @@
 
             <ImageView
                 android:id="@+id/img_usuario_registro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/common_google_signin_btn_icon_dark" />
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/anadir"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dni_registro_lay"
@@ -35,6 +37,7 @@
                     android:id="@+id/dni_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:backgroundTint="#FFFFFF"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +68,7 @@
                     android:id="@+id/nombre_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,6 +83,7 @@
                     android:id="@+id/apellidos_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +99,7 @@
                     android:id="@+id/telefono_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -108,6 +115,7 @@
                     android:id="@+id/direccion_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -123,6 +131,7 @@
                     android:id="@+id/contrasena_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>

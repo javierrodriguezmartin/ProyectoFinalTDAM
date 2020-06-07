@@ -177,6 +177,16 @@ public class VerUsuarioAdmin extends Fragment {
 
                                     }
                                 });
+
+                                modUsuVer.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        pojo_usuario.setTipo(tipoUsuVer.getSelectedItem().toString());
+                                        ref.child("centro").child("usuarios").child(pojo_usuario.getId()).setValue(pojo_usuario);
+                                        Toast.makeText(getContext(), "Modificacion correcta", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             }
                         }
 

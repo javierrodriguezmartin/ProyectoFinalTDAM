@@ -14,10 +14,11 @@ public class EjercicioEmpleado extends Ejercicio  {
         this.id_empleado = "";
     }
 
-    public EjercicioEmpleado(String id_ejercicio, String nombre, String zona, String objetivo, String descripcion, String id_empleado) {
-        super(id_ejercicio, nombre, zona, objetivo, descripcion);
+    public EjercicioEmpleado(String id_ejercicio, String nombre, String zona, String objetivo, String descripcion, String series, String repeticiones, String id_empleado) {
+        super(id_ejercicio, nombre, zona, objetivo, descripcion, series, repeticiones);
         this.id_empleado = id_empleado;
     }
+
 
     public ArrayList<String> getClientes_asignados() {
         return clientes_asignados;

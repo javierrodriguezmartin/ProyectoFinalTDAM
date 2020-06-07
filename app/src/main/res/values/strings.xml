@@ -131,4 +131,10 @@
     <string name="imagen_perfil">imagen perfil</string>
     <string name="finalidad_del_entrenamiento">Finalidad del entrenamiento</string>
     <string name="introduce_una_drescripcion_para_la_rutina">Introduce una drescripcion para la rutina:</string>
+    <string name="imagen_letras_logo">imagen letras logo</string>
+    <string name="series">Series</string>
+    <string name="repeticiones">Repeticiones</string>
+    <string name="seriesVer">Series:</string>
+    <string name="repeticionesVer">Repeticiones:</string>
+    <string name="RRRR">Buscar</string>
 </resources>

@@ -27,38 +27,70 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_gravity="center"
                         android:id="@+id/img_login"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
                         app:srcCompat="@drawable/logoapp_grande" />
 
-                    <EditText
-                        android:id="@+id/correo_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textEmailAddress"
-                        android:hint="@string/email" />
+                    <ImageView
+                        android:id="@+id/letras_login"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/reachthegym"
+                        android:contentDescription="@string/imagen_letras_logo"/>
 
-                    <EditText
-                        android:id="@+id/contrasena_login"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:hint="@string/contrase_a" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/email">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/correo_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:hint="@string/contrase_a">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/contrasena_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <Button
                         android:id="@+id/ini_sesion"
-                        android:layout_width="match_parent"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="35dp"
                         android:text="@string/iniciar_sesion" />
 
                     <Button
                         android:id="@+id/registro_login"
-                        android:layout_width="match_parent"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="@string/registrarse" />
                 </LinearLayout>
             </FrameLayout>

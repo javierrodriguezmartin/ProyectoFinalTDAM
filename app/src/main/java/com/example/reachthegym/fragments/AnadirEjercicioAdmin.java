@@ -3,9 +3,6 @@ package com.example.reachthegym.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,7 +20,6 @@ import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.EjercicioEmpleado;
-import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +29,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.OptionalInt;
 
 import ahmed.easyslider.EasySlider;
 import butterknife.BindView;
@@ -70,7 +65,11 @@ public class AnadirEjercicioAdmin extends Fragment {
     EditText descripcionEjercicio;
     @BindView(R.id.anadir_ejercicio)
     Button anadirEjercicio;
-    private final static int seleccionar_img=1;
+    private final static int seleccionar_img = 1;
+    @BindView(R.id.series_ejercicio)
+    EditText seriesEjercicio;
+    @BindView(R.id.repeticiones_ejercicio)
+    EditText repeticionesEjercicio;
     private Unbinder unbinder;
     private Uri img_url;
     private ArrayList<Uri> array_imagenes = new ArrayList<>();
@@ -119,16 +118,15 @@ public class AnadirEjercicioAdmin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_anadir_ejercicio_admin, container, false);
-        unbinder = ButterKnife.bind(this,vista);
-        img_url=null;
+        unbinder = ButterKnife.bind(this, vista);
+        img_url = null;
         ref = FirebaseDatabase.getInstance().getReference();
         sto = FirebaseStorage.getInstance().getReference();
         final String tipo_usuario;
         final String id_usuario;
-        SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
-        tipo_usuario = prefs.getString("tipo_usuario","No llega nada");
-        id_usuario = prefs.getString("id_usuario","no hay nada");
-
+        SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+        tipo_usuario = prefs.getString("tipo_usuario", "No llega nada");
+        id_usuario = prefs.getString("id_usuario", "no hay nada");
 
 
         imgEjer1.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +134,7 @@ public class AnadirEjercicioAdmin extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
-                startActivityForResult(i,seleccionar_img);
+                startActivityForResult(i, seleccionar_img);
             }
         });
         imgEjer2.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +142,7 @@ public class AnadirEjercicioAdmin extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
-                startActivityForResult(i,seleccionar_img);
+                startActivityForResult(i, seleccionar_img);
             }
         });
         imgEjer3.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +150,7 @@ public class AnadirEjercicioAdmin extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
-                startActivityForResult(i,seleccionar_img);
+                startActivityForResult(i, seleccionar_img);
             }
         });
         imgEjer4.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +158,7 @@ public class AnadirEjercicioAdmin extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
-                startActivityForResult(i,seleccionar_img);
+                startActivityForResult(i, seleccionar_img);
             }
         });
 
@@ -171,45 +169,47 @@ public class AnadirEjercicioAdmin extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (nombreEjercicio.getText().toString().trim().isEmpty() && zonaEjercicio.getText().toString().trim().isEmpty() && descripcionEjercicio.getText().toString().trim().isEmpty()
-                                && objetivoEjercicio.getText().toString().isEmpty() && img_url==null){
+                                && objetivoEjercicio.getText().toString().isEmpty() && img_url == null) {
 
                             Toast.makeText(getActivity(), "Debe rellenar los campos y añadir cuatro fotos.", Toast.LENGTH_SHORT).show();
 
-                        }else{
+                        } else {
                             String nombre = nombreEjercicio.getText().toString().trim();
-                            String zona =  zonaEjercicio.getText().toString().trim();
+                            String zona = zonaEjercicio.getText().toString().trim();
                             String descripcion = descripcionEjercicio.getText().toString().trim();
                             String objetivo = objetivoEjercicio.getText().toString().trim();
+                            String series = seriesEjercicio.getText().toString().trim();
+                            String repeticiones = repeticionesEjercicio.getText().toString().trim();
 
-                            if (tipo_usuario.equals("admin")){
+                            if (tipo_usuario.equals("admin")) {
 
                                 String id_ejercicio = ref.child("centro").child("ejercicios").push().getKey();
-                                Ejercicio pojo_ejercicio = new Ejercicio(id_ejercicio,nombre,zona,objetivo,descripcion);
+                                Ejercicio pojo_ejercicio = new Ejercicio(id_ejercicio, nombre, zona, objetivo, descripcion,series,repeticiones);
                                 ref.child("centro").child("ejercicios").child(id_ejercicio).setValue(pojo_ejercicio);
 
                                 int i = 0;
-                                for (Uri item:array_imagenes){
-                                    sto.child("centro").child("imagenes").child("ejercicios").child(id_ejercicio).child("foto"+i).putFile(item);
+                                for (Uri item : array_imagenes) {
+                                    sto.child("centro").child("imagenes").child("ejercicios").child(id_ejercicio).child("foto" + i).putFile(item);
                                     i++;
                                 }
                                 Toast.makeText(getActivity(), "Ejercicio administrador añadido", Toast.LENGTH_SHORT).show();
                                 cerrarFragment();
 
-                            }else if (tipo_usuario.equals("empleado")){
+                            } else if (tipo_usuario.equals("empleado")) {
 
                                 String id_ejercicio_emp = ref.child("centro").child("ejercicios_empleados").push().getKey();
-                                Ejercicio pojo_ejercicio = new EjercicioEmpleado(id_ejercicio_emp,nombre,zona,objetivo,descripcion,id_usuario);
+                                Ejercicio pojo_ejercicio = new EjercicioEmpleado(id_ejercicio_emp, nombre, zona, objetivo,descripcion,series,repeticiones,id_usuario);
                                 ref.child("centro").child("ejercicios_empleado").child(id_ejercicio_emp).setValue(pojo_ejercicio);
 
                                 int i = 0;
-                                for (Uri item : array_imagenes){
-                                    sto.child("centro").child("imagenes").child("ejercicios_empleado").child(id_ejercicio_emp).child("foto"+i).putFile(item);
+                                for (Uri item : array_imagenes) {
+                                    sto.child("centro").child("imagenes").child("ejercicios_empleado").child(id_ejercicio_emp).child("foto" + i).putFile(item);
                                     i++;
                                 }
                                 Toast.makeText(getActivity(), "Ejercicio añadido a tu lista de ejercicios", Toast.LENGTH_SHORT).show();
                                 cerrarFragment();
 
-                            }else{
+                            } else {
                                 Toast.makeText(getActivity(), "No entra a los if de tipos de usuario", Toast.LENGTH_SHORT).show();
                             }
 
@@ -223,9 +223,6 @@ public class AnadirEjercicioAdmin extends Fragment {
                 });
             }
         });
-
-
-
 
 
         return vista;
@@ -257,30 +254,30 @@ public class AnadirEjercicioAdmin extends Fragment {
 
 
     @Override
-    public void onActivityResult (int requestCode, int resultCode,  Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == seleccionar_img && resultCode == RESULT_OK ) {
+        if (requestCode == seleccionar_img && resultCode == RESULT_OK) {
             img_url = data.getData();
             array_imagenes.add(img_url);
-            if (array_imagenes.size()==1){
+            if (array_imagenes.size() == 1) {
                 imgEjer1.setImageURI(array_imagenes.get(0));
-            }else if(array_imagenes.size()==2) {
+            } else if (array_imagenes.size() == 2) {
                 imgEjer2.setImageURI(array_imagenes.get(1));
-            }else if(array_imagenes.size()==3){
+            } else if (array_imagenes.size() == 3) {
                 imgEjer3.setImageURI(array_imagenes.get(2));
-            }else if(array_imagenes.size()==4){
+            } else if (array_imagenes.size() == 4) {
                 imgEjer4.setImageURI(array_imagenes.get(3));
-            }else{
+            } else {
                 Toast.makeText(getContext(), "No entra en los if", Toast.LENGTH_SHORT).show();
             }
             Toast.makeText(getContext(), "Imagen seleccionada", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Toast.makeText(getContext(), "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void cerrarFragment(){
+    private void cerrarFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 

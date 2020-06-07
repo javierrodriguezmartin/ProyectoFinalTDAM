@@ -14,12 +14,13 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/Buscar"
+            android:hint="@string/RRRR"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/buscador_cliente_rutinas"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+
                 />
 
 

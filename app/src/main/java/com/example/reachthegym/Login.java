@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.reachthegym.objetos.Usuario;
 import com.example.reachthegym.fragments.FragmentRegistro;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class Login extends AppCompatActivity {
     private EditText correo,contra;
-    private ImageView img_login;
+    private ImageView img_login,letras_login;
     private Button ini_sesion,registro;
     private DatabaseReference ref;
     private StorageReference sto;
@@ -40,8 +41,9 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        correo = (EditText)findViewById(R.id.correo_login);
-        contra = (EditText)findViewById(R.id.contrasena_login);
+        correo = (TextInputEditText)findViewById(R.id.correo_login);
+        contra = (TextInputEditText)findViewById(R.id.contrasena_login);
+        letras_login = (ImageView)findViewById(R.id.letras_login);
         ini_sesion = (Button)findViewById(R.id.ini_sesion);
         registro = (Button)findViewById(R.id.registro_login);
         img_login = (ImageView)findViewById(R.id.img_login);
@@ -66,8 +68,7 @@ public class Login extends AppCompatActivity {
                                      String ide = hijo.getValue(Usuario.class).getId();
                                      String tipo = hijo.getValue(Usuario.class).getTipo().toLowerCase();
                                      String nom = hijo.getValue(Usuario.class).getNombre();
-                                     Toast.makeText(Login.this, ""+nom+"", Toast.LENGTH_SHORT).show();
-                                     Toast.makeText(Login.this, ""+ide+"", Toast.LENGTH_SHORT).show();
+
 
                                      if (pw.equals(contra.getText().toString().trim())){
 

@@ -8,7 +8,7 @@
     <item android:id="@+id/action_navi"
         android:title=""
         android:icon="@drawable/menu_abierto" />
-    
+
 
 
 </menu>

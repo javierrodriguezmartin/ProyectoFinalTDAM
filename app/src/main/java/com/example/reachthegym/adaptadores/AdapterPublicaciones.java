@@ -58,6 +58,7 @@ public class AdapterPublicaciones extends RecyclerView.Adapter<AdapterPublicacio
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         sto = FirebaseStorage.getInstance().getReference();
+        ref = FirebaseDatabase.getInstance().getReference();
 
 
         final PedirRutina pojo_pedir = lista_anuncios.get(position);
@@ -75,6 +76,7 @@ public class AdapterPublicaciones extends RecyclerView.Adapter<AdapterPublicacio
         holder.btonAnadirRutPubli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ref.child("centro").child("pedir_rutinas").child(pojo_pedir.getId_anuncio()).removeValue();
                 SeleccionarRutinaCliente  seleccionarRutinaCliente = SeleccionarRutinaCliente.newInstance(pojo_pedir.getId_creador(),"");
                 AppCompatActivity activity = (AppCompatActivity)holder.itemView.getContext();
                 activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,seleccionarRutinaCliente).addToBackStack(null).commit();

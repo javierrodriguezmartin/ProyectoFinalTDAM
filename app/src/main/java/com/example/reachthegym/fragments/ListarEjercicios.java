@@ -216,14 +216,18 @@ public class ListarEjercicios extends Fragment {
     }
 
     public Ejercicio convertirObjeto (EjercicioEmpleado ejercicioEmpleado){
-        String nombre,zona,objetivo,id;
+        String nombre,zona,objetivo,id,series,repeticiones,desc;
 
         nombre = ejercicioEmpleado.getNombre();
         zona = ejercicioEmpleado.getZona();
         objetivo = ejercicioEmpleado.getObjetivo();
         id = ejercicioEmpleado.getId_ejercicio();
+        series = ejercicioEmpleado.getSeries();
+        repeticiones = ejercicioEmpleado.getRepeticiones();
+        desc = ejercicioEmpleado.getDescripcion();
 
-        return new Ejercicio(id,nombre,zona,objetivo,"");
+
+        return new Ejercicio(id,nombre,zona,objetivo,desc,series,repeticiones);
 
     }
     public void filtrar(String texto){

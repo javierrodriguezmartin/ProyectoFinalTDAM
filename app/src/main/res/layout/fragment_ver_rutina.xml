@@ -23,7 +23,8 @@
             android:id="@+id/rut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/SS" />
+            android:text="@string/SS"
+            android:textStyle="bold"/>
 
         <ListView
             android:id="@+id/list_ejer_rut"

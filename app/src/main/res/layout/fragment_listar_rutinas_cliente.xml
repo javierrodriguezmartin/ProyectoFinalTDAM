@@ -12,11 +12,13 @@
 
         <TextView
             android:id="@+id/mis_rutinas"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:text="@string/mis_rutinas"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recy_rutinas_cliente"
