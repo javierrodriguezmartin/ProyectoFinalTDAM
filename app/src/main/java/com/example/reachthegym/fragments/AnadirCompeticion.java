@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,13 +123,20 @@ public class AnadirCompeticion extends Fragment {
                         String id = ref.child("centro").child("competiciones").push().getKey();
                         Competicion pojo_competicion = new Competicion(id, nombre1, nombre2, descripcion,nombre);
 
-                        ref.child("centro").child("clases").child(id).setValue(pojo_competicion);
+
+                        ref.child("centro").child("competiciones").child(id).setValue(pojo_competicion);
 
                         sto.child("centro").child("imagenes").child("imagenes_competicion").child(id).putFile(img_url);
 
                         Toast.makeText(getContext(), "Competicion añadida correctamente", Toast.LENGTH_SHORT).show();
 
-                        cerrarFragment();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                cerrarFragment();
+                            }
+                        },100);
+
 
 
                     } else {

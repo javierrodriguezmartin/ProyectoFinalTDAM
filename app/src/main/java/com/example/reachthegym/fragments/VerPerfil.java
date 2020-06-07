@@ -14,15 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.reachthegym.Login;
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.example.reachthegym.objetos.Usuario;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
@@ -39,8 +42,7 @@ public class VerPerfil extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.imageView)
-    CircleImageView imageView;
+
     @BindView(R.id.textView8)
     TextView textView8;
     @BindView(R.id.textView10)
@@ -73,6 +75,8 @@ public class VerPerfil extends Fragment {
     Button modificarPerfil;
     @BindView(R.id.cerrar_sesion_perfil)
     Button cerrarSesionPerfil;
+    @BindView(R.id.img_ver_perfil)
+    CircleImageView imgVerPerfil;
     private DatabaseReference ref;
     private StorageReference sto;
 
@@ -118,14 +122,24 @@ public class VerPerfil extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_ver_perfil, container, false);
         ButterKnife.bind(this, vista);
         ref = FirebaseDatabase.getInstance().getReference();
-        if (isAdded()){
+        sto = FirebaseStorage.getInstance().getReference();
+        if (isAdded()) {
 
-            if (mParam1!=null){
+            if (mParam1 != null) {
+
+                sto.child("centro").child("imagenes").child(mParam1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        Glide.with(getContext()).load(uri).into(imgVerPerfil);
+
+                    }
+                });
 
                 ref.child("centro").child("usuarios").child(mParam1).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChildren()){
+                        if (dataSnapshot.hasChildren()) {
 
                             Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
 
@@ -136,7 +150,6 @@ public class VerPerfil extends Fragment {
                             fechaVerPefil.setText(pojo_usuario.getFecha_alta());
                             dniVerPerfil.setText(pojo_usuario.getDni());
                             direccionVerPerfil.setText(pojo_usuario.getDireccion());
-
 
 
                         }
@@ -161,8 +174,8 @@ public class VerPerfil extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        ModificarPerfil modificarPerfil = ModificarPerfil.newInstance(mParam1,"");
-                        getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,modificarPerfil).addToBackStack(null).commit();
+                        ModificarPerfil modificarPerfil = ModificarPerfil.newInstance(mParam1, "");
+                        getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in, R.animator.fade_out).replace(R.id.frame_principal, modificarPerfil).addToBackStack(null).commit();
 
 
                     }
@@ -179,7 +192,7 @@ public class VerPerfil extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentMessage("","");
+            mListener.onFragmentMessage("", "");
         }
     }
 

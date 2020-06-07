@@ -19,9 +19,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.example.reachthegym.objetos.Usuario;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -123,13 +125,29 @@ public class ModificarPerfil extends Fragment {
 
             if (mParam1 != null) {
 
+                sto.child("centro").child("imagenes").child(mParam1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        Glide.with(getContext()).load(uri).into(imgModPerfil);
+
+                    }
+                });
+
                 ref.child("centro").child("usuarios").child(mParam1).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChildren()){
 
-                            usuario_completo = dataSnapshot.getValue(Usuario.class);
+                            Usuario pojo_usuario =dataSnapshot.getValue(Usuario.class);
+                            usuario_completo = pojo_usuario;
 
+                            nombreModPerfil.setText(pojo_usuario.getNombre());
+                            apellidosModPerfil.setText(pojo_usuario.getApellidos());
+                            telefonoModPerfil.setText(pojo_usuario.getTelefono());
+                            direccion.setText(pojo_usuario.getDireccion());
+                            emailModPerfil.setText(pojo_usuario.getEmail());
+                            contrasenaModPerfil.setText(pojo_usuario.getContrasena());
 
 
                         }
@@ -141,12 +159,6 @@ public class ModificarPerfil extends Fragment {
                     }
                 });
 
-                nombreModPerfil.setText(usuario_completo.getNombre());
-                apellidosModPerfil.setText(usuario_completo.getApellidos());
-                telefonoModPerfil.setText(usuario_completo.getTelefono());
-                direccion.setText(usuario_completo.getDireccion());
-                emailModPerfil.setText(usuario_completo.getDireccion());
-                contrasenaModPerfil.setText(usuario_completo.getContrasena());
 
 
                 modificarPerfil.setOnClickListener(new View.OnClickListener() {

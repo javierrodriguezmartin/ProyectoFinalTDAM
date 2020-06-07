@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,16 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
 import com.example.reachthegym.adaptadores.ListEjerciciosAdapter;
+import com.example.reachthegym.objetos.Ejercicio;
 import com.example.reachthegym.objetos.EjercicioEmpleado;
 import com.example.reachthegym.objetos.Rutina;
 import com.example.reachthegym.objetos.Usuario;
@@ -58,7 +62,7 @@ public class VerRutina extends Fragment {
     private String mParam2;
     private OnFragmentInteractionList mListener;
     private DatabaseReference ref;
-    private ArrayList<EjercicioEmpleado> lista_ejercicios;
+    private ArrayList<EjercicioEmpleado> lista_ejercicios= new ArrayList<>();
     private ListEjerciciosAdapter adapter;
 
     public VerRutina() {
@@ -145,7 +149,64 @@ public class VerRutina extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    VerEjercicio verEjercicio = VerEjercicio.newInstance("","");
+                    EjercicioEmpleado pojo = lista_ejercicios.get(position);
+
+                    VerEjercicio verEjercicio = VerEjercicio.newInstance(pojo.getId_ejercicio(),mParam1);
+
+                    getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(R.animator.fade_in,R.animator.fade_out).replace(R.id.frame_principal,verEjercicio).addToBackStack(null).commit();
+
+                }
+            });
+
+            terminarRutina.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            ref.child("centro").child("usuarios").child(id_usuario).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    if (dataSnapshot.hasChildren()){
+
+                                        Usuario pojo_usuario = dataSnapshot.getValue(Usuario.class);
+                                        ArrayList<Rutina> lista_rutinas = pojo_usuario.getLista_rutinas();
+                                        for (Rutina item:lista_rutinas){
+
+                                            if (item.getId_rutina().equals(mParam1)){
+
+                                                item.setHecha(true);
+
+                                            }
+
+                                        }
+                                        pojo_usuario.setLista_rutinas(lista_rutinas);
+                                        ref.child("centro").child("usuarios").child(id_usuario).setValue(pojo_usuario);
+
+                                        Toast.makeText(getContext(), "Rutina terminada", Toast.LENGTH_SHORT).show();
+
+
+                                    }
+
+                                }
+
+
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                        }
+                    },100);
+
 
                 }
             });

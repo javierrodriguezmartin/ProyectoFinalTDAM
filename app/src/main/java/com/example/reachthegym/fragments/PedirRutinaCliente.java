@@ -1,62 +1,53 @@
 package com.example.reachthegym.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
-import com.example.reachthegym.adaptadores.RankingAdapter;
-import com.example.reachthegym.objetos.AuxiliarRanking;
-import com.example.reachthegym.objetos.Ranking;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.reachthegym.objetos.PedirRutina;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link VerRanking#newInstance} factory method to
+ * Use the {@link PedirRutinaCliente#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class VerRanking extends Fragment {
+public class PedirRutinaCliente extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.img_ver_ranking)
-    ImageView imgVerRanking;
-    @BindView(R.id.nombre_competicion_ver_ranking)
-    TextView nombreCompeticionVerRanking;
-    @BindView(R.id.recy_ranking)
-    RecyclerView recyRanking;
-
+    @BindView(R.id.textView16)
+    TextView textView16;
+    @BindView(R.id.descripcion_pedir_rutina)
+    EditText descripcionPedirRutina;
+    @BindView(R.id.bton_publica_pedir_rutina)
+    Button btonPublicaPedirRutina;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionList mListener;
-    private RankingAdapter adapter;
     private DatabaseReference ref;
-    private ArrayList<AuxiliarRanking> lista_aux = new ArrayList<>();
 
-    public VerRanking() {
+    public PedirRutinaCliente() {
         // Required empty public constructor
     }
 
@@ -66,11 +57,11 @@ public class VerRanking extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment VerRanking.
+     * @return A new instance of fragment PedirRutinaCliente.
      */
     // TODO: Rename and change types and number of parameters
-    public static VerRanking newInstance(String param1, String param2) {
-        VerRanking fragment = new VerRanking();
+    public static PedirRutinaCliente newInstance(String param1, String param2) {
+        PedirRutinaCliente fragment = new PedirRutinaCliente();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,60 +81,52 @@ public class VerRanking extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_ver_ranking, container, false);
-        ButterKnife.bind(this,vista);
+        View vista = inflater.inflate(R.layout.fragment_pedir_rutina_cliente, container, false);
+        ButterKnife.bind(this, vista);
         ref = FirebaseDatabase.getInstance().getReference();
-        final Ranking pojo_ranking;
+        SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario",Context.MODE_PRIVATE);
+        String id_usuario = prefs.getString("id_usuario","");
+
 
         if (isAdded()) {
 
+            btonPublicaPedirRutina.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (descripcionPedirRutina.getText().toString().isEmpty()){
+                        Toast.makeText(getContext(), "Rellene la descripción", Toast.LENGTH_SHORT).show();
 
-            if (mParam1 != null && mParam2 != null) {
+                    }else{
+                        String clave = ref.child("centro").child("pedir_rutinas").push().getKey();
 
-                nombreCompeticionVerRanking.setText("Ranking de: "+mParam2);
+                        PedirRutina pojo_rutina = new PedirRutina(clave,id_usuario,descripcionPedirRutina.getText().toString());
 
-                ref.child("centro").child("ranking").child(mParam1).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChildren()){
+                        ref.child("centro").child("pedir_rutinas").child(clave).setValue(pojo_rutina);
+                        Toast.makeText(getContext(), "Anuncio publicado correctamente", Toast.LENGTH_SHORT).show();
 
-                            Ranking pojo_rank = dataSnapshot.getValue(Ranking.class);
-
-                            ArrayList<AuxiliarRanking> lista2 = new ArrayList<>();
-                             lista2 = pojo_rank.getLista_usuarios();
-
-                             for (AuxiliarRanking item : lista2){
-                                 lista_aux.add(item);
-                                 adapter.notifyDataSetChanged();
-                             }
-
-                        }
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                cerrarFragment();
+                            }
+                        },100);
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                }
+            });
 
 
 
 
 
 
-            }
 
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            linearLayoutManager.setReverseLayout(false);
-            adapter = new RankingAdapter(lista_aux,getContext());
-            recyRanking.setLayoutManager(linearLayoutManager);
-            recyRanking.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+
+
+
         }
 
         return vista;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -168,5 +151,7 @@ public class VerRanking extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
+    private void cerrarFragment(){
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
 }

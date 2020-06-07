@@ -69,9 +69,9 @@ public class VerCompeticion extends Fragment {
     MaterialButton btonApuntarseCompeticion;
     @BindView((R.id.nombre_ver_competicion))
     MaterialTextView nombreVerCompeticion;
-    @BindView((R.id.nom_eje1_competi))
+    @BindView((R.id.nombre_eje1_competicion))
     MaterialTextView nomEje1Competicion;
-    @BindView((R.id.nom_eje2_competi))
+    @BindView((R.id.nombre_eje2_competicion))
     MaterialTextView nomEje2Competicion;
     @BindView((R.id.descripcion_ver_competicion))
     MaterialTextView descripcionVerCompeticion;
@@ -137,7 +137,7 @@ public class VerCompeticion extends Fragment {
         final String[] ide_competi = new String[1];
         final String ide_usuario = prefs.getString("id_usuario","");
         final Competicion[] pojo_competi = {new Competicion()};
-        final boolean apuntado= false;
+        final boolean[] apuntado = {false};
 
 
 
@@ -227,8 +227,9 @@ public class VerCompeticion extends Fragment {
                                 Ranking pojo_ranking = new Ranking(pojo_competi[0].getId_competicion(),lista);
                                 ref.child("centro").child("ranking").child(pojo_competi[0].getId_competicion()).setValue(pojo_ranking);
                                 Toast.makeText(getContext(), "Te has apuntado correctamente", Toast.LENGTH_SHORT).show();
+                                apuntado[0] = true;
 
-                            }else{
+                            }else if (apuntado[0]==true){
 
                                 ArrayList<String> list = new ArrayList<>();
                                 list = pojo_competi[0].getLista_participantes();
@@ -249,6 +250,7 @@ public class VerCompeticion extends Fragment {
 
                                                 ref.child("centro").child("ranking").child(pojo_competi[0].getId_competicion()).setValue(pojo_ranking);
                                                 Toast.makeText(getActivity(), "Te has apuntado correctamente", Toast.LENGTH_SHORT).show();
+                                                apuntado[0]=true;
 
                                             }
 
@@ -328,7 +330,7 @@ public class VerCompeticion extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if (pojo_competi[0].getLista_participantes()==null){
+                    if (!apuntado[0]){
 
                         Toast.makeText(getContext(), "No hay nadie apuntado en la competición", Toast.LENGTH_SHORT).show();
 

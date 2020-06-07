@@ -101,7 +101,6 @@
     <string name="imagen_ranking">imagen ranking</string>
     <string name="puntos">Puntos:</string>
     <string name="imagen_ver_ranking">imagen ver ranking</string>
-    <string name="mis_rutinas">Mis Rutinas</string>
     <string name="mi_perfil">Mi perfil</string>
     <string name="listar_clasesCliente">Listar Clases</string>
     <string name="anunciocompa_ero">AnuncioCompañero</string>
@@ -117,4 +116,19 @@
     <string name="terminar">Terminar</string>
     <string name="SS">Ejercicios:</string>
     <string name="mis_rutinas">Mis Rutinas</string>
+    <string name="descripcion_para_la_rutina">Descripcion para la rutina</string>
+    <string name="introduce_una_descripci_n_para_la_rutina">Introduce una descripción para la rutina</string>
+    <string name="publicar">Publicar</string>
+    <string name="imagen_publi">imagen publi</string>
+    <string name="introduce_los_datos_para_poder_continuar">Introduce los datos para poder continuar</string>
+    <string name="rellene_los_campos_para_poder_continuar">Rellene los campos para poder continuar</string>
+    <string name="horario">Horario</string>
+    <string name="finalidad_de_la_rutina">Finalidad de la rutina</string>
+    <string name="buscarcompi">buscarcompi</string>
+    <string name="chat">Chat</string>
+    <string name="enviar">Enviar</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="imagen_perfil">imagen perfil</string>
+    <string name="finalidad_del_entrenamiento">Finalidad del entrenamiento</string>
+    <string name="introduce_una_drescripcion_para_la_rutina">Introduce una drescripcion para la rutina:</string>
 </resources>

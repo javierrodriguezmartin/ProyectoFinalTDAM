@@ -2,6 +2,7 @@ package com.example.reachthegym.adaptadores;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import com.bumptech.glide.Glide;
 import com.example.reachthegym.R;
 import com.example.reachthegym.fragments.VerCompeticion;
 import com.example.reachthegym.objetos.Competicion;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class AdapterCompeticiones extends RecyclerView.Adapter<AdapterCompeticio
     private ArrayList<Competicion> lista_competiciones;
     private Context mContext;
     private DatabaseReference ref;
+    private StorageReference sto;
 
     public AdapterCompeticiones(Context mContext, ArrayList<Competicion> lista_competiciones) {
         this.mContext = mContext;
@@ -55,10 +59,20 @@ public class AdapterCompeticiones extends RecyclerView.Adapter<AdapterCompeticio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ref = FirebaseDatabase.getInstance().getReference();
+        sto = FirebaseStorage.getInstance().getReference();
 
         final Competicion pojo_competicion = lista_competiciones.get(position);
-        Glide.with(mContext).load(pojo_competicion.getImg_url()).into(holder.imgCompeticion);
+
         holder.nombreCompeticion.setText(pojo_competicion.getNombre());
+
+        sto.child("centro").child("imagenes").child("imagenes_competicion").child(pojo_competicion.getId_competicion()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Glide.with(mContext).load(uri).into(holder.imgCompeticion);
+
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +98,6 @@ public class AdapterCompeticiones extends RecyclerView.Adapter<AdapterCompeticio
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.img_competicion)
         ImageView imgCompeticion;
-        @BindView(R.id.back_gradient)
-        ImageView backGradient;
         @BindView(R.id.nombre_competicion)
         TextView nombreCompeticion;
 

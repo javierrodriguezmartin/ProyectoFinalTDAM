@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
+import com.example.reachthegym.objetos.PedirRutina;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.FirebaseDatabase;
@@ -120,12 +121,17 @@ public class FragmentDashboardCliente extends Fragment {
             @Override
             public void onClick(View v) {
 
+                ListarRutinasCliente listarRutinasCliente = ListarRutinasCliente.newInstance("","");
+                loadFragment(listarRutinasCliente).commit();
             }
         });
 
         buscarCompañero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ListarBuscarCompanero listarBuscarCompanero = ListarBuscarCompanero.newInstance("","");
+                loadFragment(listarBuscarCompanero).commit();
 
             }
         });
@@ -134,12 +140,19 @@ public class FragmentDashboardCliente extends Fragment {
             @Override
             public void onClick(View v) {
 
+                AnuncioBuscarCompanero anuncioBuscarCompanero = AnuncioBuscarCompanero.newInstance("","");
+                loadFragment(anuncioBuscarCompanero).commit();
+
+
             }
         });
 
         pedirAsesoramiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                PedirRutinaCliente pedirRutinaCliente = PedirRutinaCliente.newInstance("","");
+                loadFragment(pedirRutinaCliente).commit();
 
             }
         });

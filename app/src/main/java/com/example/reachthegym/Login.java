@@ -65,6 +65,9 @@ public class Login extends AppCompatActivity {
                                      String pw = hijo.getValue(Usuario.class).getContrasena();
                                      String ide = hijo.getValue(Usuario.class).getId();
                                      String tipo = hijo.getValue(Usuario.class).getTipo().toLowerCase();
+                                     String nom = hijo.getValue(Usuario.class).getNombre();
+                                     Toast.makeText(Login.this, ""+nom+"", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(Login.this, ""+ide+"", Toast.LENGTH_SHORT).show();
 
                                      if (pw.equals(contra.getText().toString().trim())){
 
@@ -72,8 +75,9 @@ public class Login extends AppCompatActivity {
                                          SharedPreferences.Editor editor = prefs.edit();
                                          editor.putString("id_usuario",ide);
                                          editor.putString("tipo_usuario",tipo);
+                                         editor.putString("nombre_usuario",nom);
 
-                                         editor.apply();
+                                         editor.commit();
 
                                          Intent i = new Intent(getApplicationContext(),MenuPrincipal.class);
                                          startActivity(i);

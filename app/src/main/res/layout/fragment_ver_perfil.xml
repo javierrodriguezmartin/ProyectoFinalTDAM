@@ -18,11 +18,12 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView"
+                android:id="@+id/img_ver_perfil"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:src="@drawable/cargando" />
+                android:src="@drawable/cargando"
+                android:contentDescription="@string/imagen_perfil"/>
         </LinearLayout>
 
         <LinearLayout

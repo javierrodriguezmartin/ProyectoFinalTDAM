@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,16 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reachthegym.OnFragmentInteractionList;
 import com.example.reachthegym.R;
-import com.example.reachthegym.adaptadores.AdapterCompeticiones;
-import com.example.reachthegym.objetos.Competicion;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.reachthegym.adaptadores.AdaptadorBuscarCompanero;
+import com.example.reachthegym.objetos.BuscarCompañero;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -33,30 +29,26 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ListarCompeticiones#newInstance} factory method to
+ * Use the {@link ListarBuscarCompanero#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListarCompeticiones extends Fragment {
+public class ListarBuscarCompanero extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.recy_listar_competiciones)
-    RecyclerView recyListarCompeticiones;
-    @BindView(R.id.no_hay_competis)
-    TextView noHayCompetis;
+    @BindView(R.id.recy_buscar_compi)
+    RecyclerView recyBuscarCompi;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionList mListener;
+    private ArrayList<BuscarCompañero> lista_anuncios = new ArrayList<>();
     private DatabaseReference ref;
-    private StorageReference sto;
-    private AdapterCompeticiones adapter;
-    private ArrayList<Competicion> lista_competiciones;
+    private AdaptadorBuscarCompanero adapter;
 
-
-    public ListarCompeticiones() {
+    public ListarBuscarCompanero() {
         // Required empty public constructor
     }
 
@@ -66,11 +58,11 @@ public class ListarCompeticiones extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListarCompeticiones.
+     * @return A new instance of fragment ListarBuscarCompanero.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListarCompeticiones newInstance(String param1, String param2) {
-        ListarCompeticiones fragment = new ListarCompeticiones();
+    public static ListarBuscarCompanero newInstance(String param1, String param2) {
+        ListarBuscarCompanero fragment = new ListarBuscarCompanero();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,42 +82,28 @@ public class ListarCompeticiones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_listar_competiciones, container, false);
+
+        View vista = inflater.inflate(R.layout.fragment_listar_buscar_companero, container, false);
         ButterKnife.bind(this,vista);
-        if (isAdded()) {
+        ref = FirebaseDatabase.getInstance().getReference();
+        if (isAdded()){
 
-            ref = FirebaseDatabase.getInstance().getReference();
-            sto = FirebaseStorage.getInstance().getReference();
-            lista_competiciones = new ArrayList<>();
-
-            ref.child("centro").child("competiciones").addValueEventListener(new ValueEventListener() {
+            ref.child("centro").child("buscar_compañero").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChildren()) {
-                        lista_competiciones.clear();
+                    lista_anuncios.clear();
+                    if (dataSnapshot.hasChildren()){
 
-                        for (DataSnapshot hijo : dataSnapshot.getChildren()) {
-                            Competicion pojo_competicion = hijo.getValue(Competicion.class);
+                        for (DataSnapshot hijo : dataSnapshot.getChildren()){
 
-                            lista_competiciones.add(pojo_competicion);
+                            BuscarCompañero pojo_buscar = hijo.getValue(BuscarCompañero.class);
+                            lista_anuncios.add(pojo_buscar);
                             adapter.notifyDataSetChanged();
 
 
                         }
-                        for (DataSnapshot hijo : dataSnapshot.getChildren()) {
-                            Competicion pojo_competicion = hijo.getValue(Competicion.class);
-                            sto.child("centro").child("imagenes").child("imagenes_competiciones").child(pojo_competicion.getId_competicion()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    pojo_competicion.setImg_url(uri);
-                                }
-                            });
-                        }
-                    } else {
 
                     }
-
-
                 }
 
                 @Override
@@ -134,22 +112,14 @@ public class ListarCompeticiones extends Fragment {
                 }
             });
 
+            adapter = new AdaptadorBuscarCompanero(lista_anuncios,getContext());
+            recyBuscarCompi.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyBuscarCompi.setAdapter(adapter);
 
         }
 
-
-            noHayCompetis.setVisibility(View.GONE);
-            adapter = new AdapterCompeticiones(getContext(), lista_competiciones);
-            recyListarCompeticiones.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyListarCompeticiones.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-
-
-
         return vista;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -174,5 +144,4 @@ public class ListarCompeticiones extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 }

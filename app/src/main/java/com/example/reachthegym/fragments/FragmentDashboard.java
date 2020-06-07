@@ -141,6 +141,9 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
+                AnadirCompeticion anadirCompeticion = AnadirCompeticion.newInstance("","");
+                loadFragment(anadirCompeticion).commit();
+
             }
         });
 
@@ -175,6 +178,8 @@ public class FragmentDashboard extends Fragment {
         listarAnunciosDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ListarPedirRutina listarPedirRutina = ListarPedirRutina.newInstance("","");
+                loadFragment(listarPedirRutina).commit();
 
             }
         });

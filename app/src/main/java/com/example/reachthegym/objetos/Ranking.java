@@ -8,6 +8,13 @@ public class Ranking {
     int clientes_apuntados,total_puntos;
      ArrayList<AuxiliarRanking> lista_usuarios;
 
+    public Ranking() {
+        this.id_competicion = "";
+        this.total_puntos = 0;
+        this.lista_usuarios = null;
+        this.clientes_apuntados = 0;
+    }
+
     public Ranking(String id_competicion,ArrayList<AuxiliarRanking> lista_usuarios) {
         this.id_competicion = id_competicion;
         this.total_puntos = 0;

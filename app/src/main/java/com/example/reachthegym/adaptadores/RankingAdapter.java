@@ -55,7 +55,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
         AuxiliarRanking pojo_auxranking = lista_ranking.get(position);
 
-        holder.totalPuntos.setText(pojo_auxranking.getTotal_puntos());
+        holder.totalPuntos.setText(pojo_auxranking.getTotal_puntos()+"");
 
         sto.child("centro").child("imagenes").child(pojo_auxranking.getId_usuario()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -66,7 +66,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             }
         });
 
-        holder.posicionRank.setText(position+1);
+        holder.posicionRank.setText(position+1+"");
 
 
     }

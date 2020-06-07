@@ -172,13 +172,6 @@
                 android:text="@string/a_adir_participacion" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/modificar_competicion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/modificar" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/borrar_competicion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

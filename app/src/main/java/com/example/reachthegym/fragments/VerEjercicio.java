@@ -135,7 +135,7 @@ public class VerEjercicio extends Fragment {
 
             for (int i = 0; i < 4; i++) {
 
-                sto.child("centro").child("imagenes").child("ejercicios_empleado").child("" + mParam1 + "").child("foto" + i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                sto.child("centro").child("imagenes").child("ejercicios_empleado").child(mParam1).child("foto" + i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
 
