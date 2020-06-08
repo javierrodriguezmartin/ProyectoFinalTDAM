@@ -69,7 +69,7 @@ public class AdaptadorBuscarCompanero extends RecyclerView.Adapter<AdaptadorBusc
 
         holder.horarioBuscaCompi.setText(pojo_compañero.getHorario());
         holder.descripBuscarCompi.setText(pojo_compañero.getDescripcion());
-        sto.child("centro").child("imagenes").child(id_usuario).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        sto.child("centro").child("imagenes").child(pojo_compañero.getId_creador()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(mContext).load(uri).into(holder.imgBuscarCompañero);
