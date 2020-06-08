@@ -114,7 +114,7 @@ public class ListarCompeticiones extends Fragment {
                         }
                         for (DataSnapshot hijo : dataSnapshot.getChildren()) {
                             Competicion pojo_competicion = hijo.getValue(Competicion.class);
-                            sto.child("centro").child("imagenes").child("imagenes_competiciones").child(pojo_competicion.getId_competicion()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            sto.child("centro").child("imagenes").child("imagenes_competicion").child(pojo_competicion.getId_competicion()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     pojo_competicion.setImg_url(uri);
