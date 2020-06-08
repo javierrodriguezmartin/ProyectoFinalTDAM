@@ -100,6 +100,7 @@ public class FragmentDashboard extends Fragment {
 
         sto = FirebaseStorage.getInstance().getReference();
         SharedPreferences prefs = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+        String id = prefs.getString("id_usuario","");
 
 
         sto.child("centro").child("imagenes").child(prefs.getString("id_usuario", "")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -184,6 +185,15 @@ public class FragmentDashboard extends Fragment {
             }
         });
 
+
+
+        imgDashUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VerPerfil verPerfil = VerPerfil.newInstance(id,"");
+                loadFragment(verPerfil).commit();
+            }
+        });
 
         return vista;
     }
