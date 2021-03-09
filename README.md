@@ -1,5 +1,5 @@
 # Reach The GYM
-![Project Image]{copy3.png}
+![Project Image](copy3.png)
 
 >La app para tu centro deportivo.
 
@@ -7,10 +7,10 @@
 
 ### Tabla de contenidos
 
--[Descripción]{#descripción}
--[Tecnologías]{#tecnologías}
--[Imagenes]{#imágenes}
--[Como Usarla]{#como-usarla}
+-[Descripción](#descripción)
+-[Tecnologías](#tecnologías)
+-[Imagenes](#imágenes)
+-[Como Usarla](#como-usarla)
 
 
 ---
@@ -37,11 +37,11 @@ en el gimnasio.
 
 ## Imágenes
 
-![Imagen 1][copy.png]
-![Imagen 2][copy1.png]
-![Imagen 3][copy2.png]
-![Imagen 4][copy4.png]
-![Imagen 5][copy6.png]
+![Imagen 1](copy.png)
+![Imagen 2](copy1.png)
+![Imagen 3](copy2.png)
+![Imagen 4](copy4.png)
+![Imagen 5](copy6.png)
 
 ## Como usarla
 
